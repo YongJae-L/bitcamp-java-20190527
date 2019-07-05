@@ -26,9 +26,9 @@ public class Test11 {
     // 자바에서는 로컬 변수(메서드 안에 선언된 변수)에 값을 저장하지 않고 사용하려 시도하면
     // 컴파일 오류가 발생한다.
     //arr1[0] = 100; // 초기화 하지 않고 사용했기 때문에 컴파일 오류 발생
-    
     arr1 = null; // null? 0으로 설정한다. 즉 특정 메모리를 가리키지 않는 상태를 표시함.
-    arr1[0] = 100; // arr1을 사용하기 전에 초기화 시켰기 때문에 컴파일 오류는 발생하지 않는다.
+   
+    //arr1[0] = 100; // arr1을 사용하기 전에 초기화 시켰기 때문에 컴파일 오류는 발생하지 않는다.
                   // 그러나 없는 배열을 사용하려고 했기 때문에 
                   // NullPointerException 예외 발생
     
@@ -45,6 +45,8 @@ public class Test11 {
     arr1[2] = 80;
     arr1[3] = 70;
     arr1[4] = 60;
+    for(int i=0;i<arr1.length;i++)
+      System.out.println(arr1[i]);
     //arr1[-1] = 100; // ArrayIndexOutOfBoundsException 예외 발생
     //arr1[5] = 50; // ArrayIndexOutOfBoundsException 예외 발생
     
