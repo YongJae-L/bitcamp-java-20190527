@@ -1,10 +1,13 @@
-package com.eomcs.lms;
+package com.eomcs.lms.handler;
+
+import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.util.Input;
 
 public class LessonHandler {
-  static Lesson[] lessons = new Lesson[100];
-  static int leesonsSize=0;
+  private static Lesson[] lessons = new Lesson[100];
+  private static int leesonsSize=0;
   
-  static void addLesson() {
+  public static void addLesson() {
     Lesson lesson = new Lesson();
     
     lesson.no = Input.getIntValue("번호? ");
@@ -19,7 +22,7 @@ public class LessonHandler {
     System.out.println("저장하였습니다.");
   }
   
-  static void listLesson() {
+  public static void listLesson() {
     if(leesonsSize==0)
       System.out.println("해당 리스트가 존재하지 않습니다.");
     for ( int i2 = 0; i2 < leesonsSize; i2++) {

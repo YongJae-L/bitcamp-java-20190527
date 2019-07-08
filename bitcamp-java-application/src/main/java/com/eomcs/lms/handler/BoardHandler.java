@@ -1,12 +1,14 @@
-package com.eomcs.lms;
+package com.eomcs.lms.handler;
 
 import java.sql.Date;
+import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.util.Input;
 
 public class BoardHandler {
-  static Board[] boards = new Board[100];
-  static int boardsSize=0;
+  private static Board[] boards = new Board[100];
+  private static int boardsSize=0;
   
-  static void listBoard() {
+  public static void listBoard() {
     if(boardsSize==0)
       System.out.println("게시물이 존재하지 않습니다.");
       for (int i = 0; i < boardsSize; i++) {
@@ -15,7 +17,7 @@ public class BoardHandler {
       }
   }
 
-  static void addBoard() {
+  public static void addBoard() {
     Board board = new Board();
     board.no = Input.getIntValue("번호? ");
     board.contents = Input.getStringValue("내용? ");
