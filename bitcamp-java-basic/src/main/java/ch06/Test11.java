@@ -16,7 +16,7 @@ public class Test11 {
     
     // 2) call by reference
     // 메서드를 호출할 때 파라미터 값으로 메모리의 주소를 넘긴다.
-    int[] arr = new int[] {100, 200, 300};
+    int[] arr = {100, 200, 300};
     System.out.println(arr[1]);
     m2(arr); // arr의 값을 넘긴다. 어? 그러면 call by value 가 아닌가요?
              // 그런데 arr의 값은 배열의 주소이다. 
@@ -31,8 +31,8 @@ public class Test11 {
   }
   
   // m1()의 arr는 배열 주소를 받는 변수이다.
-  static void m2(int[] arr) {
-    arr[1] = 111;
+  static void m2(int[] b) {
+    b[1] = 111;
   }
 }
 

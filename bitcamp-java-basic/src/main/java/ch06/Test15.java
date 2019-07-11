@@ -23,7 +23,6 @@ public class Test15 {
     System.out.printf("총점: %d\n", sum);
     System.out.printf("평균: %.1f\n", sum / 3f);
   }
-  
 }
 
 

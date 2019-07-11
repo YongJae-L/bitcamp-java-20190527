@@ -7,7 +7,7 @@ public class Test10 {
     m1(++value);
     System.out.println(value);
   }
-  
+
   static void m1(int value) {
     m2(++value);
     System.out.println(value);

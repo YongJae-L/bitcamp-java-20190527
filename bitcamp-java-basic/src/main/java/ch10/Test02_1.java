@@ -1,7 +1,7 @@
 // 인스턴스 멤버 
 package ch10;
 
-class My0 { //밑에 다합쳐서 클래스멤버
+class My6 { //밑에 다합쳐서 클래스멤버
   // [스태틱 멤버]
   
   //   1.스태틱 필드
@@ -27,12 +27,12 @@ class My0 { //밑에 다합쳐서 클래스멤버
     // 3.인스턴스 메서드
   }
   
-  My0(){
+  My6(){
     // 4.생성자 (메서드)
   }
 }
 
-class My2 {
+class My5 {
   //1) 인스턴스 필드
   int a = 100;
   
@@ -52,7 +52,7 @@ class My2 {
   //3) 생성자
   //=> 인스턴스 블록을 실행한 후 자동으로 호출된다.
   //=> 생성자에도 인스턴스 주소를 담는 this라는 내장 변수가 있다.
-  My2() {
+  My5() {
     System.out.println("생성자 호출: a=" + this.a);
   }
   
@@ -63,7 +63,7 @@ class My2 {
   }
 }
 
-public class Test02 {
+public class Test02_1 {
   public static void main(String[] args) {
     new My2();
   }
