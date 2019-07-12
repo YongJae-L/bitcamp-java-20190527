@@ -37,6 +37,36 @@ public class Test02 {
     System.out.println(s1 instanceof String);
     System.out.println(s2 instanceof String);
     System.out.println(s3 instanceof String);
+    
+    String te1 = new String("haha");
+    String te2 = new String("haha");
+    String te3 = "haha";
+    String te4 = "haha";
+    
+    System.out.println("=================");
+    if(te1==te2)
+      System.out.println("1.같다");
+    else
+      System.out.println("2.다르다");
+    
+    System.out.println("=================");
+    if(te1==te3)
+      System.out.println("1.같다");
+    else
+      System.out.println("2.다르다");
+    
+    System.out.println("=================");
+    if(te2==te3)
+      System.out.println("1.같다");
+    else
+      System.out.println("2.다르다");
+    
+    System.out.println("=================");
+    if(te3==te4)
+      System.out.println("1.같다");
+    else
+      System.out.println("2.다르다");
+    
   }
 }
 

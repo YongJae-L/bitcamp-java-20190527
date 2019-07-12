@@ -27,7 +27,6 @@ public class Test03 {
     else
       System.out.println("s2 != sx");
     
-    
   }
 }
 
