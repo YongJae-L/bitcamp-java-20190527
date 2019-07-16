@@ -8,7 +8,7 @@ public class Test02 {
     // 생성자 호출 과정
     // => Y() => X(int) => Object()
     
-    obj.m1();
+    //obj.m1();
     obj.m2();
     
   }

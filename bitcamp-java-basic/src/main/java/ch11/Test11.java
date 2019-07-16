@@ -41,6 +41,18 @@ public class Test11 {
       System.out.println("obj3 == obj4");
     else 
       System.out.println("obj3 != obj4");
+    
+    // 오토 박싱인 경우 인스턴스의 주소는?
+    Integer obj5 = 100;
+    Integer obj6 = 100;
+
+    
+    System.out.println(obj5 == obj3);
+    
+    // Wrapper 객체를 valueOf() 나 리터럴로 생성할 때는
+    // String 객체와 마찬가지로 상수 풀(constant pool)에 생성되;ㄴ다.
+    // 그리고 같은 값인 경우 중복 생성되지 않는다.
+    
   }
 }
 

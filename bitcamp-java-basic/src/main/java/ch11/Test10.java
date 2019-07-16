@@ -13,8 +13,22 @@ public class Test10 {
     // 그래서 자바는 boxing과 unboxing을 코드 문맥에 따라 자동으로 수행한다.
     int i2 = obj1; // auto-unboxing. 즉 내부적으로 obj1.intValue()를 호출한다.
     Integer obj2 = 200; // auto-boxing. 즉 내부적으로 Integer.valueOf(200)을 호출한다.
+
+    printInt(obj2);
+    printObject(100);
+  }
+  private static void printObject(int i) {
+    // TODO Auto-generated method stub
     
   }
+  static void printInt(int value) {
+    System.out.println(value);
+  }
+     //컴파일러가 printInt(obj2.inValue()()로 바꾼다. "오토 언박싱 한다. 
+  
+//  static void printInteger(Integer) obj() {
+//    System.out.println(obj.toStrinf());
+//  }
 }
 
 

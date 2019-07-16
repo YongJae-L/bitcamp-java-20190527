@@ -10,7 +10,7 @@ public class Test08 {
     
     // StringBuffer의 equals()는 값을 비교하는 것이 아니라 인스턴스가 같은지 비교한다.
     // 즉 == 연산자와 똑 같다.
-    System.out.println(b1.equals(b2)); 
+    System.out.println(b1.equals(b2)); //내용비교 XXXXX 위랑 같다
     
     // 어떤 클래스에 equals()가 있나요?
     // => 모든 클래스에 있다.
@@ -35,7 +35,7 @@ public class Test08 {
     // 왜, String 클래스는 인스턴스가 아닌 문자열 값을 비교하나요?
     // => String 클래스는 상속 받은 equals() 메서드를 재정의하였기 때문이다.
     // => 이렇게 상속 받은 기능을 자신의 역할에 맞게끔 재정의하는 것을 "오버라이딩(overriding)"이라 한다.
-    //
+    // => 같은 기능을 하는 메소드에서 파라미터가 다르더라도 같은 이름을 가지는 함수여러개 선언할 수 있는 자바의 기능 = "Overloading"!
     // StringBuffer는 재정의 하지 않아서 다르다고 결과가 나온건가요?
     // => 예!
   }

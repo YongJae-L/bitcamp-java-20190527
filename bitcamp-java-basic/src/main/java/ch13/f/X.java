@@ -6,6 +6,10 @@ public class X {
   public X(int value) { 
     //super(); // 생략하면 수퍼 클래스의 기본 생성자를 호출하는 코드가 자동으로 추가된다.
              // A 클래스의 수퍼클래스? Object 이다.
+    {
+      System.out.println("Xx");
+    }
+    
     
     this.v1 = value;
     System.out.println("A.A()");

@@ -2,6 +2,9 @@ package ch13.f;
 
 public class Y extends X {
   private int v2 = 200;
+  {
+    System.out.println("YY");
+  }
   
   public Y() { 
     //super(); // 컴파일 오류! B의 수퍼 클래스? X 클래스이다. X 클래스는 기본 생성자가 없다.

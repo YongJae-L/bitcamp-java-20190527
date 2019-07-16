@@ -17,7 +17,6 @@ public class Test01 {
       System.out.println("같다");
     else
       System.out.println("다르다");
-    
   }
 }
 
