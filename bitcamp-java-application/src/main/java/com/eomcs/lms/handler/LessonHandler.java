@@ -30,7 +30,7 @@ public class LessonHandler {
   
   public void listLesson() {
     Object[] list = lessonList.toArray();
-    for (Object obj : list) {
+    for (Object obj : list) {      
       Lesson lesson = (Lesson) obj;
       System.out.printf("%s, %s, %s ~ %s, %s\n",
           lesson.getNo(), lesson.getTitle(), lesson.getStartDate(), lesson.getEndDate(), lesson.getTotalHours());
