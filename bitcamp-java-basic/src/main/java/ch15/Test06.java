@@ -16,6 +16,7 @@ public class Test06 {
     obj2.name = "홍길동";
     obj2.age = 20;
     
+    
     // Object에서 상속 받은 hashCode()는 인스턴스마다 고유의 4바이트 정수 값을 리턴한다.
     // => 이 값은 toString()의 출력 값으로 사용된다.
     System.out.println(Integer.toHexString(obj1.hashCode()));

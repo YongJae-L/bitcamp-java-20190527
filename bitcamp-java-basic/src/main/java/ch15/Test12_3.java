@@ -1,22 +1,16 @@
-// Object 클래스 - clone() 사용법 II
+// Object 클래스 - clone() 사용법 III
 package ch15;
  
 // clone()은 인스턴스를 복제할 때 호출하는 메서드이다.
 
-public class Test16 {
+public class Test12_3 {
   
   // 인스턴스 복제 기능을 활성화하려면 Cloneable 인터페이스를 구현해야 한다.
   // => 이 인터페이스에는 메서드가 선언되어 있지 않다.
   // => 따라서 클래스는 따로 메서드를 구현할 필요가 없다.
   // => Cloneable을 구현하는 이유는 JVM에게 이 클래스의 인스턴스를 복제할 수 있음을 표시하기 위함이다.
-  //    이 표시가 안된 클래스는 JVM이 인스턴스를 복제해 주지 않는다.
-  // 
-  // 인스턴스를 복제할 때는, 
-  // => Object에서 상속 받은 clone()을 호출해야 한다.
-  // => 그런데 clone()의 접근 제어가 protected 이라서 
-  //    같은 패키지의 멤버이거나 서브 클래스만이 호출할 수 있다.
-  // => 다른 패키지의 멤버가 호출하려면 public 으로 접근 제어의 범위를 넓혀야 한다.
-  // => 어떻게? 오버라이딩 하라!
+  //    이 표시가 안된 클래스는 JVM이 인스턴스를 복제해 주지 않는다. 즉 clone()을 호출할 수 없다.
+  
   static class Score implements Cloneable {
     String name;
     int kor;
@@ -51,7 +45,8 @@ public class Test16 {
     @Override
     public Score clone() throws CloneNotSupportedException {
       // 복제를 위한 코드를 작성할 필요가 없다. JVM이 알아서 해준다. 
-      // 그냥 상속 받은 메서드를 호출하라!
+      // 그냥 상속 받은 메서드를 오버라이딩하고, 접근 권한을 public 으로 확대한다.
+      // 리턴 타입은 해당 클래스 이름으로 변경한다.
       return (Score) super.clone();
     }
   }
@@ -59,17 +54,16 @@ public class Test16 {
   public static void main(String[] args) throws Exception {
     
     Score s1 = new Score("홍길동", 100, 100, 100);
-    
-    // 만약 Score에 java.lang.Cloneable 인터페이스 붙이지 않았다면,
-    // JVM은 다음 예외를 발생시킨다.
-    // => java.lang.CloneNotSupportedException:
-    // 즉 Score 클래스는 개발자가 복제를 허락하지 않았다는 뜻이다.
-    // 
-    Score s2 = s1.clone(); 
-    s2.name = "임꺽정";
-    
+    Score s2 = s1.clone(); // 이제 예외가 발생하지 않는다!
+    // => Score 클래스의 복제 기능을 활성화 시켰기 때문이다.
+    //    class Score implements Clonable {..}
+    System.out.println(s1==s2);
     System.out.println(s1);
     System.out.println(s2);
+    String srt ="123213213";
+    System.out.println(srt.hashCode());
+    
+   
   }
 }
 

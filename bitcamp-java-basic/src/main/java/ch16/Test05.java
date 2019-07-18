@@ -20,8 +20,10 @@ public class Test05 {
     System.out.println(temp == strs2);
     
     // 생성할 배열의 타입 정보를 넘긴다.
-    String[] strs3 = create3(String.class);
+    String[] strs3 = create3(String.class); //내장변수 class 파일XX => 클래스 정보를 가지고 있는 객체를 가리키는 주소가  들어있다. 
     System.out.println(strs3.length);
+    Object strs4 = create4(new String[0]);
+    System.out.println(strs4.getClass());
   }
   
   // 제네릭으로 배열 생성하기
@@ -42,14 +44,13 @@ public class Test05 {
   // 예3) 배열의 타입 정보를 받아 생성하기
   @SuppressWarnings("unchecked")
   static <T> T[] create3(Class<?> type) {
+    System.out.println(Array.newInstance(type, 10));
     return (T[]) Array.newInstance(type, 10);
   }
   
   // 예4) 견본 배열의 타입 정보를 가지고 배열을 생성하기
   @SuppressWarnings("unchecked")
   static <T> T[] create4(T[] arr) {
-    // copyOf(original, newLength)
-    // => 원래 배열(original)과 같은 타입의 배열을 배열크기(newLength)에 맞춰 새로 생성한다.
     return (T[]) Array.newInstance(arr.getClass(), 10);
   }
   
