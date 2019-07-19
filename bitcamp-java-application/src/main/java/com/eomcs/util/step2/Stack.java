@@ -1,7 +1,10 @@
 // 상속 문법을 이용하여 스택 만들기
-package com.eomcs.util;
+package com.eomcs.util.step2;
 
-public class Stack<E> extends LinkedList<E> implements Cloneable, Iterable<E>{
+import com.eomcs.util.Iterator;
+import com.eomcs.util.LinkedList;
+
+public class Stack<E> extends LinkedList<E> implements Cloneable {
   
   @Override
   public Stack<E> clone() throws CloneNotSupportedException {
@@ -33,20 +36,22 @@ public class Stack<E> extends LinkedList<E> implements Cloneable, Iterable<E>{
   }
   
   // 스택에서 Iterator를 제공한다.
-  @Override
-  public Iterator<E> iterator(){
-      return new Iterator<E>(){ //슈퍼 클래스 기본생성자 호출 = () 
-
-      @Override
-      public boolean hasNext() {
-        return size() > 0;
-      }
-
-      @Override
-      public E next() {
-        return pop();
-      }
-    };
-    
+  public Iterator<E> getIterator(){
+    return new StackIterator();
   }
+  
+  private class StackIterator implements Iterator<E>{
+
+    @Override
+    public boolean hasNext() {
+      return size() > 0;
+    }
+
+    @Override
+    public E next() {
+      return pop();
+    }
+
+  }
+  
 }
