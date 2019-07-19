@@ -1,9 +1,9 @@
 // LinkedList : 목록으로 다루는 값을 특정 타입으로 제한하기 위해 제네릭(generic) 적용하기
-package com.eomcs.util;
+package algorithm.data_structure.queue.step3;
 
 import java.lang.reflect.Array;
 
-public class LinkedList<T> implements List<T> {
+public class LinkedList<T> {
   Node<T> head;
   Node<T> tail;
   int size = 0;
@@ -13,7 +13,6 @@ public class LinkedList<T> implements List<T> {
     //tail = head; //head 변수에 들어있는 '값'을 tail의 변수에 값을 저장 L-value는 메모리/ R-value는 값
   }
   
-  @Override
   public boolean add(T value) {
     Node<T> temp = new Node<>(value);
     
@@ -31,7 +30,6 @@ public class LinkedList<T> implements List<T> {
     return true;
   }
   
-  @Override
   public T get(int index) {
     if(index < 0 || index >=size)
       throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다!");
@@ -43,12 +41,10 @@ public class LinkedList<T> implements List<T> {
     
   }
   
-  @Override
   public int size() {
     return size;
   }
   
-  @Override
   public T set(int index, T value) {
     if(index < 0 || index >=size)
       throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다!");
@@ -61,7 +57,6 @@ public class LinkedList<T> implements List<T> {
     return oldvalue;
   }
   
-  @Override
   public T remove(int index) {
     if(index < 0 || index >=size)
       throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다!");
@@ -107,7 +102,6 @@ public class LinkedList<T> implements List<T> {
     }
   }
   
-  @Override
   public void clear() {
     //노드를 따라 가면서 삭제하기
     if(size==0)
@@ -154,6 +148,30 @@ public class LinkedList<T> implements List<T> {
     return a;
   }
   
+  public static void main(String[] args) {
+    LinkedList<String> list = new LinkedList<>();
+    list.add("1");
+    list.add("2");
+    list.add("3");
+    list.add("4");
+    list.add("5");
+    list.add("6");
+    list.add("7");
+    list.set(2, "222");
+//    for (int i=0;i<list.size;i++) {
+//      System.out.println(list.get(i));
+//    }
+//    System.out.println(list.size);
+      
+      String[] arr = list.toArray(new String[] {});
+      for (String obj : arr) {
+        System.out.println(obj);
+      }
+//    for(Object arr : list.toArray()) {
+//      System.out.println(arr);
+//    }
+    
+  }
   // LinkedList에서 사용하는 클래스라면 굳이 패키지 멤버 클래스로 만든 필요가 없다.
   // LinkedList 안에 선언하여 중첩 클래스로 정의하는 것이
   // 소스 코드의 유지보수에 좋다.
@@ -169,35 +187,6 @@ public class LinkedList<T> implements List<T> {
     public Node(T value) {
       this.value=value;
     }
-  }
-  @Override
-  public Object[] toArray() {
-    return null;
-  }
-  
-  public static void main(String[] args) {
-    LinkedList<String> list = new LinkedList<>();
-    list.add("1");
-    list.add("2");
-    list.add("3");
-    list.add("4");
-    list.add("5");
-    list.add("6");
-    list.add("7");
-    list.set(2, "222");
-//    for (int i=0;i<list.size;i++) {
-//      System.out.println(list.get(i));
-//    }
-//    System.out.println(list.size);
-    
-    String[] arr = list.toArray(new String[] {});
-    for (String obj : arr) {
-      System.out.println(obj);
-    }
-//    for(Object arr : list.toArray()) {
-//      System.out.println(arr);
-//    }
-    
   }
 }
 
