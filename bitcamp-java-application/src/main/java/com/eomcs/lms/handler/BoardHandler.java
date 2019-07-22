@@ -1,9 +1,9 @@
 package com.eomcs.lms.handler;
 
 import java.sql.Date;
-import java.util.List;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.util.Input;
+import com.eomcs.util.List;
 
 public class BoardHandler {
   private List<Board> boardList;
@@ -13,7 +13,7 @@ public class BoardHandler {
   // "의존 객체(dependency)"라 부른다.
   public BoardHandler(Input input, List<Board> list) {
     this.input=input;
-    this.boardList = list;
+    this.boardList=list;
   }
   public void listBoard() {
 //    Board[] boards = new Board[boardList.size()];     //적당한 사이즈 배열 넘기기.

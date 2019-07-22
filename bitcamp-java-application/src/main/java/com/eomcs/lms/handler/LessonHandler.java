@@ -1,17 +1,17 @@
 package com.eomcs.lms.handler;
 
-import java.util.List;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.util.Input;
+import com.eomcs.util.List;
 
 public class LessonHandler {
   
   private List<Lesson> lessonList;
   private Input input;
   
-  public LessonHandler(Input input, List<Lesson> list ){
+  public LessonHandler(Input input,List<Lesson> list){
     this.input=input;
-    this.lessonList = list;
+    this.lessonList=list;
   }
   
   public void addLesson() {

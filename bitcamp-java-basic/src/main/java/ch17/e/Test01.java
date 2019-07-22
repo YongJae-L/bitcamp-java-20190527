@@ -27,11 +27,11 @@ public class Test01 {
     
     // 정렬된 값을 출력한다.
     for (int  value : values) {
-      System.out.print(value + ",");
+      System.out.print(value + " ");
     }
     System.out.println();
   }
-}
+} 
 
 
 

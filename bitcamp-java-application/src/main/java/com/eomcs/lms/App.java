@@ -1,36 +1,28 @@
 // 애플리케이션 메인 클래스
 // => 애플리케이션을 실행할 때 이 클래스를 실행한다.
 package com.eomcs.lms;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
 import com.eomcs.lms.handler.BoardHandler;
 import com.eomcs.lms.handler.LessonHandler;
 import com.eomcs.lms.handler.MemberHandler;
+import com.eomcs.util.ArrayList;
 import com.eomcs.util.Input;
+import com.eomcs.util.Iterator;
+import com.eomcs.util.LinkedList;
+import com.eomcs.util.Queue;
+import com.eomcs.util.Stack;
 
 public class App {
   
   static Scanner keyScan;
+  static Stack<String> commandStack = new Stack<>();
+  static Queue<String> commandQueue = new Queue<>();
+  
   public static void main(String[] args) throws Exception {
     
     keyScan = new Scanner(System.in);
+    //Input.keyScan = keyScan;
     
-    // 명령어를 저장하는 컬렉션(collection)
-    // => java.util.Stack 에서는 Vector 클래스의 Iterator를 리턴한다.
-    //    Vector에서 제공하는 Iterator는 입력한 순서대로 값을 꺼낸다.
-    //    즉 FIFO 방식으로 꺼내기 때문에 스택의 LIFO 방식과 맞지 않다.
-    //    그래서 ArrayDeque를 사용하는 것이다.
-    //    ArrayDeque에서 제공하는 Iterator는 LIFO 방식으로 값을 꺼낸다.
-    //    
-    Deque<String> commandStack = new ArrayDeque<>();
-    Queue<String> commandQueue = new LinkedList<>();
-    
-    // Input.keyScan = keyScan;
     // Input 생성자를 통해 Input이 의존하는 객체인 Scanner를 주입한다.
     Input input = new Input(keyScan);
     
@@ -38,26 +30,25 @@ public class App {
     // 각 핸들러의 생성자를 통해 의존 객체  "Input"을 주입한다.
     // => 이렇게 어떤 객체가 필요로 하는 의존 객체를 주입하는 것을
     // "의존성 주입(Dependency Injectrion; DI)" 라고 한다.
-    // => DI를 전문적으로 처리해주는 프레임워크가 있으니 그 이름름도 유명한
+    // => DI를 전문적으로 처리해주는 프레임워크가 있으니 그 이름도 유명한
     // Spring IoC 컨테이너!
-    LessonHandler lessonHandler = new LessonHandler(input, new ArrayList<>());
+    LessonHandler lessonHandler = new LessonHandler(input,new LinkedList<>());
     MemberHandler memberhandler = new MemberHandler(input, new LinkedList<>());
     BoardHandler boardHandler = new BoardHandler(input, new ArrayList<>());
-    BoardHandler boardHandler2 = new BoardHandler(input, new LinkedList<>());
+    BoardHandler boardHandler2 = new BoardHandler(input, new ArrayList<>());
+    
     
     while(true) {
       String command = prompt();
-      if(command.length()==0)
-        continue;
       commandStack.push(command);
       commandQueue.offer(command);
       if(command.equals("quit")){
         System.out.println("시스템을 종료합니다.");
         break;
         } else if (command.equals("history")) {
-          printCommandHistory(commandStack);
+          printCommandHistory(commandStack.clone());
         } else if (command.equals("history2")) {
-          printCommandHistory(commandQueue);
+          printCommandHistory(commandQueue.clone());
         } else if(command.equals("/lesson/add")) {
           lessonHandler.addLesson();
         } else if (command.equals("/lesson/list")) {
@@ -98,14 +89,14 @@ public class App {
       }
     }
 
-    private static void printCommandHistory(Iterable<String> list) throws Exception{
+    private static void printCommandHistory(com.eomcs.util.Iterable<String> list) throws Exception{
       //Stack<String> stack = commandStack.clone();
       Iterator<String> iterator = list.iterator();
       int count = 0;
       while (iterator.hasNext()) {
         System.out.println(iterator.next());
         if(++count % 5 ==0) {
-          System.out.print(":");
+          System.out.println(":");
           if(keyScan.nextLine().equalsIgnoreCase("q"))
             break;
         }

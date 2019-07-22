@@ -1,9 +1,9 @@
 package com.eomcs.lms.handler;
 
 import java.sql.Date;
-import java.util.List;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.util.Input;
+import com.eomcs.util.List;
 
 public class MemberHandler {
 
@@ -13,6 +13,7 @@ public class MemberHandler {
     this.input=input;
     this.memberlist=list;
   }
+  
   public void listMember() {
     Member[] members = memberlist.toArray(new Member[] {});
       for (Member member : members) {

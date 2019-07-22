@@ -18,7 +18,7 @@ class My2 extends A {
   }
   
   public void m3() {
-    System.out.println("Hello!");
+    System.out.println("Hello!-m3()");
   }
 }
 
