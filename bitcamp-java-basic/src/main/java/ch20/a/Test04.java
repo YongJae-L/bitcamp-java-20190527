@@ -31,6 +31,7 @@ public class Test04 {
       }
       */
 
+      /*
       @Override
       public boolean equals(Object obj) {
         if (this == obj)
@@ -49,6 +50,7 @@ public class Test04 {
           return false;
         return true;
       }
+      */
     }
     
     Student s1 = new Student("aaa", 20);

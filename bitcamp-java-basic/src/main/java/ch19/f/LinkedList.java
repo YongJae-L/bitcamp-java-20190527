@@ -1,4 +1,4 @@
-// 특정 클래스에 의해서만 사용되는 클래스가 있다면 그 클래스 안에 정의하라!
+// 중첩 클래스 사용 후 : static과 non-static 중첩 클래스 사용
 package ch19.f;
 
 // Array 클래스는 LinkedList 클래스에서만 사용한다.
@@ -164,7 +164,27 @@ public class LinkedList {
       return arr;
     }
   }
-
+  // Node 클래스는 LinkedList의 특정 클래스와 관계가 없다.
+  // 따라서 위에서 정의한 Array 클래스와 다르게 
+  // static nested class로 선언한다.
+  private static class Node {
+    public Object value;
+    public Node prev;
+    public Node next;
+    
+    public Node() {
+    }
+    
+    public Node(Object value) {
+      this.value = value;
+    }
+    
+    public Node(Object value, Node prev, Node next) {
+      this(value);
+      this.prev = prev;
+      this.next = next;
+    }
+  }
 }
 
 

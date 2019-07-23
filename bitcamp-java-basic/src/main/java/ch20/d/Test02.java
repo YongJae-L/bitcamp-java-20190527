@@ -45,9 +45,10 @@ public class Test02 {
     
     map.put("ccc", null);
     System.out.println(map.get("ccc"));
-    
-    // Hashtable은 value에 null을 허용하지 않는다.
-    //table.put("ccc", null); // runtime 오류!
+      
+//     Hashtable은 value에 null을 허용하지 않는다.
+//    table.put("ccc", null); // runtime 오류!
+      // => table이 더 까다롭게 검사하므로 속도가 약간 느리다.
     
   }
 }

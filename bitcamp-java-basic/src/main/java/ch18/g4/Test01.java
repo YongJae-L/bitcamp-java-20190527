@@ -2,6 +2,7 @@ package ch18.g4;
 
 import ch18.g2.FilmPrinter;
 import ch18.g2.PaperPrinter;
+import ch18.g2.Printer;
 import ch18.g3.Printer2;
 import ch18.g3.WaterMarkPrinter;
 
@@ -20,8 +21,10 @@ public class Test01 {
     // 안타깝게도 기존 프린터는 새 프린터 규격에 맞지 않아서 직접 사용할 수 없다.
     // 해결책!
     // => 아답터에 꼽아 사용해보자!
-    display(new Printer2Adapter(p2), "안녕하세요!", "bitcamp bitcamp bitcamp bitcamp bitcamp");
-    display(new Printer2Adapter(p3), "안녕하세요!", "bitcamp bitcamp bitcamp bitcamp bitcamp");
+//    display(new Printer2Adapter(p2), "안녕하세요!", "bitcamp bitcamp bitcamp bitcamp bitcamp");
+//    display(new Printer2Adapter(p3), "안녕하세요!", "bitcamp bitcamp bitcamp bitcamp bitcamp");
+    display(p2,"안녕하세요!");
+    display(p3,"안녕하세요!");
     
   }
   
@@ -30,4 +33,8 @@ public class Test01 {
     printer.print(text);
     printer.watermark(watermarkText);
   }
+  private static void display(Printer printer, String text) {
+    printer.print(text);
+  }
+  
 }

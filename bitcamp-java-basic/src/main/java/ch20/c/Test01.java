@@ -33,6 +33,7 @@ public class Test01 {
       System.out.println(iterator.next());
     }
     
+    
     // 출력 결과를 보면 입력 순서로 꺼낼 수 없다.
     // 이유?
     // => 저장할 때 각 인스턴스에 대해 hashCode()의 리턴 값으로 위치를 정하기 때문이다.
