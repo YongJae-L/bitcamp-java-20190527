@@ -7,8 +7,16 @@ public class Test03 {
     
     List list = new List(a);
     
-    int[] r = list.toArray(value -> (value % 2) == 1);
+//    int[] r = list.toArray(new Filter() {
+//    @Override
+//    public boolean accept(int value) {
+//      return (value % 2) == 1;
+//    }
+//  });
+    int[] r = list.toArray((int value) -> {return (value % 2) == 1;});
     
+    //int[] r = list.toArray((value) -> (value % 2) == 1);
+
     for (int v : r) {
       System.out.println(v);
     }

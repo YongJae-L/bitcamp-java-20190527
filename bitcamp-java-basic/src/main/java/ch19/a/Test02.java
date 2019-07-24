@@ -31,7 +31,8 @@ public class Test02 {
   public static void main(String[] args) {
     // 3) local class
     // => 특정 메서드 안에서만 사용되는 클래스.
-    class C {}
+    class C {
+    }
 
     // 4) anonymous class 
     // => 클래스의 이름이 없다.
@@ -47,10 +48,13 @@ public class Test02 {
     Object obj = new Object() {
       //Object 클래스를 상속 받은 익명 클래스를 만들고,
       // f1() 메서드를 추가한다.
+      {System.out.println("@@");}
+      
       public void f1() {
-        System.out.println("Hello!");
+        System.out.println("Hello!!");
       }
     };
+    
   }
 }
 

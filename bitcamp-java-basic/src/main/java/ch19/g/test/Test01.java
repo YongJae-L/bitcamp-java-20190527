@@ -7,7 +7,7 @@ public class Test01 {
     
     List list = new List(a);
     
-    EvenFilter filter = new EvenFilter();
+    Filter filter = new EvenFilter();
     
     int[] r = list.toArray(filter);
     

@@ -11,10 +11,11 @@ public class Test03 {
   public static class MyFilenameFilter implements FilenameFilter {
     @Override
     public boolean accept(File dir, String name) {
-      if (name.endsWith(".txt"))
-        return true;
-      else 
-        return false;
+//      if (name.endsWith(".txt"))
+//        return true;
+//      else 
+//        return false;
+      return (name.endsWith(".txt"));
     }
   }
   

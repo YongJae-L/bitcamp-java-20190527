@@ -17,6 +17,7 @@ public class Test01 {
       }
     };
     //Player p1 = () -> System.out.println("테스트1");
+    //Player p1 = () -> System.out.println("테스트1");
     
     p1.play();
     

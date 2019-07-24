@@ -31,7 +31,7 @@ public class Test01 {
     // 4) LinkedList는 Array로부터 받은 배열을 그대로 리턴한다.
     // 5) LinkedList 리턴한 배열을 출력한다.
     for (Object obj : arr) {
-      System.out.print(obj + ",");
+      System.out.print(obj + " ");
     }
     System.out.println();
     

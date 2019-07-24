@@ -7,12 +7,20 @@ public class Test02 {
     
     List list = new List(a);
     
-    int[] r = list.toArray(new EvenFilter() {
-      @Override
-      public boolean accept(int value) {
-        return (value % 2) == 1;
-      }
-    });
+//    int[] r = list.toArray(new Filter() {
+//      @Override
+//      public boolean accept(int value) {
+//        return (value % 2) == 1;
+//      }
+//    });
+    
+//    int[] r = list.toArray(new Filter() {
+//      public boolean accept(int value) {
+//        return (value % 2) == 1;
+//      }
+//    });
+    int[] r = list.toArray(value ->(value % 2) == 1);
+    //int[] r = list.toArray(value -> (value % 2) == 1);
     
     for (int v : r) {
       System.out.println(v);
