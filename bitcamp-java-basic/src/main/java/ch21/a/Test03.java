@@ -15,6 +15,8 @@ public class Test03 {
     System.out.println(list.get(1));
     System.out.println(list.get(2));
     
+    
+    
     // 유효한 인덱스가 아니면 get() 메서드에서 예외를 발생시킨다.
     // => Exception 계열인 IndexOutOfBoundsException가 발생한다.
     // => 즉 애플리케이션 예외가 발생한다.
