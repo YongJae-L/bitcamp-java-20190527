@@ -10,11 +10,8 @@ public class Test11_2 {
     // local class 
     class TextFileFilter implements FileFilter {
       @Override
-      public boolean accept(File pathname) {
-        if (pathname.isFile() && pathname.getName().endsWith(".txt"))
-          return true;
-        else 
-          return false;
+      public boolean accept(File file) {
+        return file.isFile() && file.getName().endsWith(".txt");
       }
     }
     

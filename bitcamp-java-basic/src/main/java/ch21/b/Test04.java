@@ -2,7 +2,6 @@
 package ch21.b;
 
 import java.util.HashMap;
-
 import java.util.Scanner;
 
 public class Test04 {

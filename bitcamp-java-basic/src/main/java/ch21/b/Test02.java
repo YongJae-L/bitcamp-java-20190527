@@ -26,12 +26,12 @@ public class Test02 {
         
         // try 블록에서 발생할 수 있는 예외가 여러 개일 때 
         // 각 예외 정보를 받을 catch 블록을 여러 개 둘 수 있다.
-      } catch (NumberFormatException e) {
-        System.out.println("숫자를 입력하세요.");
       } catch (NullPointerException e) {
         System.out.println("해당 명령이 존재하지 않습니다.");
         
-      } 
+      } catch (NumberFormatException e) {
+        System.out.println("숫자를 입력하세요.");
+      }
     }
      
     
