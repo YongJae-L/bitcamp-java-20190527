@@ -3,12 +3,13 @@ package ch22.e;
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class Test04_1 {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     
     ArrayList<Score> students = new ArrayList<>();
     students.add(new Score("홍길동", 100, 100, 100));
@@ -20,9 +21,9 @@ public class Test04_1 {
     // => 인스턴스를 바이트 배열로 만들어 출력하는 기능이 있다.
     // => 단 java.io.Serializable 인터페이스를 구현한 클래스에 대해서만 가능하다.
     //
-    try (ObjectOutputStream out = new ObjectOutputStream(
-          new BufferedOutputStream(
-          new FileOutputStream("score.data")))) {
+    FileOutputStream out0 = new FileOutputStream("score.data");
+    BufferedOutputStream out1 = new BufferedOutputStream(out0);
+    ObjectOutputStream out = new ObjectOutputStream(out1);
       
       out.writeInt(students.size());
       
@@ -31,10 +32,7 @@ public class Test04_1 {
       }
       
       out.flush();
-      
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+      out.close();
     System.out.println("출력 완료!");
   }
 

@@ -1,14 +1,16 @@
-// Serialize - Serializable 인터페이스
+// 인스턴스 출력 - Serialize 
 package ch22.f;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 public class Test1_1 {
 
-  public static void main(String[] args) {
-    try (ObjectOutputStream out = new ObjectOutputStream(
-          new FileOutputStream("score1.data"))) {
+  public static void main(String[] args) throws IOException {
+    
+    FileOutputStream out0 = new FileOutputStream("score.data");
+    ObjectOutputStream out = new ObjectOutputStream(out0);
       
       // 인스턴스 출력하기
       
@@ -27,11 +29,7 @@ public class Test1_1 {
       
       // Score1 클래스는 java.io.Serializable을 구현하지 않았기 때문에
       // writeObject()를 사용할 수 없다.
-      
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
+      out.close();
   }
 
 }

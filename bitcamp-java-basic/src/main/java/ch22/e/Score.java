@@ -18,7 +18,6 @@ public class Score implements Serializable {
   private int math;
   private int sum;
   private float aver;
-  
   public Score() {
     System.out.println("Score()");
   }

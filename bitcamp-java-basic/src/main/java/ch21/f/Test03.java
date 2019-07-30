@@ -40,7 +40,7 @@ public class Test03 {
     } catch (Exception e){
       System.out.println("예외 발생!");
     }
-     
+      System.out.println("종료!");
   }
 }
 

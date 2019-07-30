@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Test04_2 {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     
     ArrayList<Score> students = new ArrayList<>();
     
@@ -22,9 +22,7 @@ public class Test04_2 {
     //    이때는 생성자가 호출되지 않는다.
     //    따라서 초기화시킬 것이 있다면 따로 메서드를 호출해야 한다.
     // 
-    try (ObjectInputStream in = new ObjectInputStream(
-          new BufferedInputStream(
-          new FileInputStream("score.data")))) {
+    ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream("score.data")));
       
       int len = in.readInt();
       
@@ -36,15 +34,12 @@ public class Test04_2 {
         //score.compute();
         students.add(score);
       }
-      
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+
     
     // 그리고 세 학생의 정보를 다음과 같은 형식으로 출력하라.
     // =>   홍길동, 100, 100, 100, 300, 100 
     // 
-    
+    in.close();
     for (Score s : students) {
       System.out.printf("%s, %d, %d, %d, %d, %.1f\n", 
         s.getName(), s.getKor(), s.getEng(), s.getMath(),
