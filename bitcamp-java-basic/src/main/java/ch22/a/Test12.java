@@ -17,7 +17,6 @@ public class Test12 {
           f.length(),
           f.getName());
     }
-    
   }    
 }
 

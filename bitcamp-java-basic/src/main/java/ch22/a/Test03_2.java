@@ -11,7 +11,7 @@ public class Test03_2 {
     // => 존재하지 않는 폴더가 자동 생성되지 않는다. 
     // => 따라서 그 하위 폴더를 생성할 수 없다.
     //
-    File dir = new File("temp2/ok");
+    File dir = new File("temp3/ok");
     if (dir.mkdir()) {
       System.out.println("디렉토리 생성됨.");
     } else {

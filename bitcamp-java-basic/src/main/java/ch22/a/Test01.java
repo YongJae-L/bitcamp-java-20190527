@@ -27,11 +27,11 @@ public class Test01 {
     System.out.println(dir.getUsableSpace()); // 빈 용량 중에서 사용할 수 있는 용량
     
     // 디렉토리가 존재하지 않는 경우 리턴 값은 false이다.
-    System.out.println(dir.isDirectory());
-    System.out.println(dir.isFile());
-    System.out.println(dir.isHidden());
-    System.out.println(dir.exists());
-    System.out.println(dir.canExecute());
+    System.out.println(dir.isDirectory()); // 폴더니?
+    System.out.println(dir.isFile()); //파일이니?
+    System.out.println(dir.isHidden()); //숨김폴더니?
+    System.out.println(dir.exists()); // 존재하니?
+    System.out.println(dir.canExecute()); //접근 권한
     
     System.out.println("---------------------------");
     

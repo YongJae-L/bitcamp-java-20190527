@@ -7,7 +7,7 @@ import java.io.FileReader;
 public class Test01_1 {
   public static void main(String[] args) throws Exception {
 
-    FileReader in = new FileReader("temp/jls12.txt");
+    FileReader in = new FileReader("temp/data.txt");
 
     System.out.println("데이터 읽는 중...");
 

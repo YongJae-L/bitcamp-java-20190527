@@ -7,7 +7,7 @@ import java.io.FileFilter;
 public class Test11_1 {
 
   // static nested class 
-  static class TextFileFilter implements FileFilter {
+  static class TextFileFilter implements FileFilter { //파일의 정보로 구별!
     @Override
     public boolean accept(File file) {
       return file.isFile() && file.getName().endsWith(".txt");

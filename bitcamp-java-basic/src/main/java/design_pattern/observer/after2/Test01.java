@@ -12,9 +12,9 @@ public class Test01 {
     //
     car.addObserver(new SafeBeltCarObserver());
     car.addObserver(new EngineOilCarObserver());
-    car.addObserver(new BreakOilCarObserver());
-    car.addObserver(new LightOffCarObserver());
-    car.addObserver(new SunRoofCloseCarObserver());
+    //car.addObserver(new BreakOilCarObserver());
+    //car.addObserver(new LightOffCarObserver());
+   // car.addObserver(new SunRoofCloseCarObserver());
     
     car.start();
     car.run();
