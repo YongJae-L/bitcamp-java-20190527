@@ -52,6 +52,28 @@ public class ServerTest {
         error();
       }
       System.out.println("-----------------");
+      if(!list()) {
+        error();
+      }
+      System.out.println("-----------------");
+      if(!detail()) {
+        error();
+      }
+      member = new Member();
+      member.setNo(1);
+      member.setName("홍길동2");
+      member.setEmail("hong2@test.com");
+      member.setPhoto("leem2.jpg");
+      member.setTel("1111-1113");
+      System.out.println("-----------------");
+      if(!update(member)) {
+        error();
+      }
+      System.out.println("-----------------");
+      if(!list()) {
+        error();
+      }
+      System.out.println("-----------------");
       if(!quit()) {
         error();
       }
@@ -65,6 +87,30 @@ public class ServerTest {
     System.out.println("서버와 연결 끊음");
   }
   
+  private static boolean update(Member m) throws Exception {
+    out.writeUTF("/member/update");
+    out.writeObject(m);
+    out.flush();
+    System.out.println("detail 요청함 ===>");
+    if(!in.readUTF().equals("ok"))
+      return false;
+    
+    System.out.println("처리 완료!");
+    return true;
+  }
+
+  private static boolean detail() throws Exception {
+    out.writeUTF("/member/detail");
+    out.writeInt(1);
+    out.flush();
+    System.out.println("detail 요청함 ===>");
+    if(!in.readUTF().equals("ok"))
+      return false;
+    System.out.println("처리 완료!");
+    System.out.println(in.readObject());
+    return true;
+  }
+
   private static void error() throws Exception {
     System.out.printf("오류: %s\n", in.readUTF());
   }
@@ -77,12 +123,13 @@ public class ServerTest {
     if (!in.readUTF().equals("ok"))
       return false;
     System.out.println("처리 완료!");
-    return true;
+      return true;
   }
 
   private static boolean delete() throws Exception {
     // 서버가 처리할 수 없는 명령어 보내기
-    out.writeUTF("/memeber/delete");
+    out.writeUTF("/member/delete");
+    out.writeInt(2);
     out.flush();
     System.out.println("delete요청함 =>");
     
@@ -120,6 +167,7 @@ public class ServerTest {
     @SuppressWarnings("unchecked")
     List<Member> list = (List<Member>)in.readObject();
     System.out.println("-----------------");
+    System.out.println("@@@@@@@!:"+list.size());
     for(Member m : list) {
       System.out.println(m);
     }
