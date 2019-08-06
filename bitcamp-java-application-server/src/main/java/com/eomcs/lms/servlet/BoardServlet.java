@@ -3,7 +3,6 @@ package com.eomcs.lms.servlet;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.Date;
-import com.eomcs.lms.Servlet;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.dao.serial.BoardSerialDao;
 import com.eomcs.lms.domain.Board;
@@ -17,7 +16,7 @@ public class BoardServlet implements Servlet {
   ObjectInputStream in;
   ObjectOutputStream out;
   
-  public BoardServlet(BoardDao boardDao, ObjectInputStream in, ObjectOutputStream out) 
+  public BoardServlet(BoardDao boardDao, ObjectInputStream in, ObjectOutputStream out)
       throws Exception {
     
     this.in = in;
@@ -30,7 +29,7 @@ public class BoardServlet implements Servlet {
     
     boardDao = new BoardSerialDao("./board.ser");
   }
-  
+ 
   @Override
   public void service(String command) throws Exception {
     switch (command) {

@@ -8,11 +8,11 @@ import com.eomcs.lms.dao.serial.MemberSerialDao;
 
 // 서버가 시작되거나 종료될 때 보고를 받고 작업을 수행하는 역할
 // => ServletContextListener 규칙을 준수해야만 서버의 시작과 종료 알림을 받을 수 있다.
-public class AppInitListener implements ServletContextListener{
+public class AppInitListener implements ServletContextListener {
   BoardSerialDao boardDao;
   MemberSerialDao memberDao;
   LessonSerialDao lessonDao;
-  
+
   @Override
   public void contextInitialized(Map<String, Object> context) {
     System.out.println("서버를 시작했으니 객체를 준비해야 겠다!");    
@@ -21,6 +21,10 @@ public class AppInitListener implements ServletContextListener{
 //  BoardCsvDao boardDao = new BoardCsvDao("./board.csv");
 //  MemberCsvDao memberDao = new MemberCsvDao("./member.csv");
 //  LessonCsvDao lessonDao = new LessonCsvDao("./lesson.csv");
+    
+// boardDao = new BoardSerialDao("./board.ser");
+// memberDao = new MemberSerialDao("./member.ser");
+// lessonDao = new LessonSerialDao("./lesson.ser");
   
   try {
     boardDao = new BoardSerialDao("./board.ser");
