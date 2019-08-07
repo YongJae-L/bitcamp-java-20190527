@@ -23,15 +23,3 @@ public class CalculatorServer {
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
