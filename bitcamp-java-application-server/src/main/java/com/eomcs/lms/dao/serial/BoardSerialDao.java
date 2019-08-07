@@ -6,7 +6,8 @@ import java.util.List;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
-public class BoardSerialDao extends AbstractDataSerializer<Board,Integer> implements BoardDao{
+public class BoardSerialDao extends AbstractDataSerializer<Board,Integer> 
+    implements BoardDao {
   
   public BoardSerialDao(String file) throws ClassNotFoundException {
     super(file);

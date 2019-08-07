@@ -7,7 +7,8 @@ import java.util.List;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
-public class BoardCsvDao extends AbstractCsvDataSerializer<Board,Integer> implements BoardDao {
+public class BoardCsvDao extends AbstractCsvDataSerializer<Board,Integer> 
+    implements BoardDao {
   
   public BoardCsvDao(String file) {
     super(file);

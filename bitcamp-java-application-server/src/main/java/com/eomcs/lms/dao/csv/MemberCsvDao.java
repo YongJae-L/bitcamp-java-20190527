@@ -7,7 +7,8 @@ import java.util.List;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
-public class MemberCsvDao extends AbstractCsvDataSerializer<Member,Integer> implements MemberDao {
+public class MemberCsvDao extends AbstractCsvDataSerializer<Member,Integer> 
+    implements MemberDao {
   
   public MemberCsvDao(String file) {
     super(file);

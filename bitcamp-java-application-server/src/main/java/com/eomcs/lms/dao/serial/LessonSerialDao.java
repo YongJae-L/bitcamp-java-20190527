@@ -6,13 +6,16 @@ import java.util.List;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
-public class LessonSerialDao extends AbstractDataSerializer<Lesson,Integer> implements LessonDao {
+public class LessonSerialDao extends AbstractDataSerializer<Lesson,Integer> 
+    implements LessonDao {
   
   public LessonSerialDao(String file) throws ClassNotFoundException {
     super(file);
     
     try {
       loadData();
+      System.out.println("수업 데이터 로딩 완료!");
+      
     } catch (IOException e) {
       System.out.println("수업 데이터 로딩 중 오류 발생!");
     }

@@ -7,7 +7,8 @@ import java.util.List;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
-public class LessonCsvDao extends AbstractCsvDataSerializer<Lesson,Integer> implements LessonDao {
+public class LessonCsvDao extends AbstractCsvDataSerializer<Lesson,Integer> 
+    implements LessonDao {
   
   public LessonCsvDao(String file) {
     super(file);
@@ -76,7 +77,7 @@ public class LessonCsvDao extends AbstractCsvDataSerializer<Lesson,Integer> impl
     return -1;
   }
   
-//  @Override
+  @Override
   public int insert(Lesson lesson) throws Exception {
     list.add(lesson);
     return 1;

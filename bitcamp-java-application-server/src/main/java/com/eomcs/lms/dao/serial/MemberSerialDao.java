@@ -6,13 +6,16 @@ import java.util.List;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
-public class MemberSerialDao extends AbstractDataSerializer<Member,Integer> implements MemberDao {
+public class MemberSerialDao extends AbstractDataSerializer<Member,Integer> 
+    implements MemberDao {
   
   public MemberSerialDao(String file) throws ClassNotFoundException {
     super(file);
     
     try {
       loadData();
+      System.out.println("회원 데이터 로딩 완료!");
+      
     } catch (IOException e) {
       System.out.println("회원 데이터 로딩 중 오류 발생!");
     }

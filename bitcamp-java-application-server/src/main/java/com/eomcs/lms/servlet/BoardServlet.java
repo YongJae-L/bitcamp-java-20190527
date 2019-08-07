@@ -13,33 +13,35 @@ public class BoardServlet implements Servlet {
   BoardDao boardDao;
   
   public BoardServlet(BoardDao boardDao) {
-
+    
     // 서블릿이 사용할 DAO를 직접 만들지 않고 외부에서 주입 받아 사용한다.
     // 이렇게 의존하는 객체를 외부에서 주입 받아 사용하는 방법을
-    // "의존성 주입(Dependency Injectrion: DI)"이라 부른다.
+    // "의존성 주입(Dependency Injection; DI)"이라 부른다.
     // => 그래야만 의존 객체를 교체하기 쉽다.
+    //
     this.boardDao = boardDao;
   }
- 
+  
   @Override
-  public void service(String command,
-      ObjectInputStream in,
+  public void service(
+      String command, 
+      ObjectInputStream in, 
       ObjectOutputStream out) throws Exception {
     switch (command) {
       case "/board/add":
-        addBoard(in,out);
+        addBoard(in, out);
         break;
       case "/board/list":
-        listBoard(in,out);
+        listBoard(in, out);
         break;
       case "/board/delete":
-        deleteBoard(in,out);
+        deleteBoard(in, out);
         break;  
       case "/board/detail":
-        detailBoard(in,out);
+        detailBoard(in, out);
         break;
       case "/board/update":
-        updateBoard(in,out);
+        updateBoard(in, out);
         break;
       default:
         out.writeUTF("fail");
@@ -47,8 +49,7 @@ public class BoardServlet implements Servlet {
     }
   }
   
-  private void updateBoard(ObjectInputStream in,
-      ObjectOutputStream out) throws Exception {
+  private void updateBoard(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     Board board = (Board)in.readObject();
     
     // 서버쪽에서 게시글 변경일을 설정해야 한다.
@@ -56,39 +57,36 @@ public class BoardServlet implements Servlet {
     board.setCreatedDate(new Date(System.currentTimeMillis()));
     
     if (boardDao.update(board) == 0) {
-      fail("해당 번호의 게시물이 없습니다.",out);
+      fail("해당 번호의 게시물이 없습니다.", out);
       return;
     }
     out.writeUTF("ok");
   }
 
-  private void detailBoard(ObjectInputStream in,
-      ObjectOutputStream out) throws Exception {
+  private void detailBoard(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     int no = in.readInt();
     
     Board board = boardDao.findBy(no);
     if (board == null) {
-      fail("해당 번호의 게시물이 없습니다.",out);
+      fail("해당 번호의 게시물이 없습니다.", out);
       return;
     }
     out.writeUTF("ok");
     out.writeObject(board);
   }
 
-  private void deleteBoard(ObjectInputStream in,
-      ObjectOutputStream out) throws Exception {
+  private void deleteBoard(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     int no = in.readInt();
     
     if (boardDao.delete(no) == 0) {
-      fail("해당 번호의 게시물이 없습니다.",out);
+      fail("해당 번호의 게시물이 없습니다.", out);
       return;
     }
     
     out.writeUTF("ok");
   }
 
-  private void addBoard(ObjectInputStream in,
-      ObjectOutputStream out) throws Exception {
+  private void addBoard(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     Board board = (Board)in.readObject();
     
     // 서버쪽에서 게시글 생성일을 설정해야 한다.
@@ -96,15 +94,14 @@ public class BoardServlet implements Servlet {
     board.setCreatedDate(new Date(System.currentTimeMillis()));
     
     if (boardDao.insert(board) == 0) {
-      fail("게시물을 입력할 수 없습니다.",out);
+      fail("게시물을 입력할 수 없습니다.", out);
       return;
     }
     
     out.writeUTF("ok");
   }
   
-  private void listBoard(ObjectInputStream in,
-      ObjectOutputStream out) throws Exception {
+  private void listBoard(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("ok");
     out.reset(); // 기존에 serialize 했던 객체의 상태를 무시하고 다시 serialize 한다.
     out.writeObject(boardDao.findAll());
