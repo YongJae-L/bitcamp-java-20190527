@@ -18,9 +18,10 @@ public class Test04 {
       }
     }; // 스레드 객체 생성 => 준비 상태
     t.start(); // => Running 상태
+    t.join();
     
     // t 스레드가 dead 상태가 될 때까지 기다린다.
-    t.join();
+    //t.join();
     
     for (int i = 0; i < 1000; i++) {
       System.out.printf("main() ~~~~> %d\n", i);

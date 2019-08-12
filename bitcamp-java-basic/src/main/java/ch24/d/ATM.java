@@ -22,10 +22,3 @@ public class ATM extends Thread {
     System.out.printf("%s 에서 찾은 금액 합계: %.2f\n", this.getName(), sum);
   }
 }
-
-
-
-
-
-
-
