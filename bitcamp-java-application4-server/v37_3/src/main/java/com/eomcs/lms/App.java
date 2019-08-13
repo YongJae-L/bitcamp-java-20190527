@@ -1,4 +1,4 @@
-// server-v37_4 : Stateful 통신 방식을 Stateless 통신 방식으로 변경하기.
+// client-v37_3 : 애플리케이션 서버 아키텍처의 이점 확인하기. 검색 기능을 추가해도 클라이언트를 다시 설치할 필요가 없다.
 package com.eomcs.lms;
 
 import java.io.BufferedReader;
@@ -108,14 +108,16 @@ public class App {
     PrintStream out = new PrintStream(socket.getOutputStream())) {
     System.out.println("클라이언트와 연결됨!");
     
+    while (true) {
       // 클라이언트가 보낸 명령을 읽는다.
       String request = in.readLine();
       if(request.equals("quit")) {
-        out.println("Good bye!");
+        break;
       } else if (request.equals("serverstop")) {
         state = STOP;
-        out.println("Good bye!");
-      } else {
+        break;
+      }
+      
       Command command = commandMap.get(request);
       if(command == null) {
         out.println("해당 명령을 처리할 수 없습니다.");
