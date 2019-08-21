@@ -7,10 +7,10 @@ import com.eomcs.util.Input;
 
 public class PhotoBoardDeleteCommand implements Command {
   
-  private PhotoBoardDao photoboardDao;
+  private PhotoBoardDao photoBoardDao;
   
-  public PhotoBoardDeleteCommand(PhotoBoardDao photoboardDao) {
-    this.photoboardDao = photoboardDao;
+  public PhotoBoardDeleteCommand(PhotoBoardDao photoBoardDao) {
+    this.photoBoardDao = photoBoardDao;
   }
   
   @Override
@@ -18,7 +18,7 @@ public class PhotoBoardDeleteCommand implements Command {
     
     try {
       int no = Input.getIntValue(in,out,"번호? ");
-      if (photoboardDao.delete(no) > 0) {
+      if (photoBoardDao.delete(no) > 0) {
         out.println("데이터를 삭제하였습니다.");
       } else {
         out.println("해당 데이터가 없습니다.");
