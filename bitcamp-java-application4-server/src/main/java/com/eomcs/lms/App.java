@@ -1,4 +1,4 @@
-// v38_3 : 사진 게시판 만들기 + 첨부파일 다루기 + 트랜젝션 적용하기
+// v40_1 : 스레드 전용 커넥션 객체 사용하기(스레드 로컬 문법 적용) + 트랜잭션 처리
 package com.eomcs.lms;
 
 import java.io.BufferedReader;
@@ -6,8 +6,6 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -43,18 +41,16 @@ import com.eomcs.lms.handler.PhotoBoardDeleteCommand;
 import com.eomcs.lms.handler.PhotoBoardDetailCommand;
 import com.eomcs.lms.handler.PhotoBoardListCommand;
 import com.eomcs.lms.handler.PhotoBoardUpdateCommand;
+import com.eomcs.util.ConnectionFactory;
 
 public class App {
   private static final int CONTINUE = 1;
   private static final int STOP = 0;
 
-  public static Connection con;
   HashMap<String, Command> commandMap = new HashMap<>();
   int state;
-  
-  //스레드풀
   ExecutorService executorService = Executors.newCachedThreadPool();
-  
+  ConnectionFactory conFactory;
 
   public App() throws Exception {
 
@@ -62,16 +58,16 @@ public class App {
     state = CONTINUE;
 
     try {
-      // DAO가 사용할 Connection 객체 준비하기
-      con = DriverManager
-          .getConnection("jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111");
+      // 커넥션 관리자를 준비한다.
+      conFactory = new ConnectionFactory("org.mariadb.jdbc.Driver",
+          "jdbc:mariadb://localhost/bitcampdb", "bitcamp", "1111");
 
-      // Command 객체가 사용할 데이터 처리 객체를 준비한다.
-      BoardDao boardDao = new BoardDaoImpl(con);
-      MemberDao memberDao = new MemberDaoImpl(con);
-      LessonDao lessonDao = new LessonDaoImpl(con);
-      PhotoBoardDao photoBoardDao = new PhotoBoardDaoImpl(con);
-      PhotoFileDao photoFileDao = new PhotoFileDaoImpl(con);
+      // Command 객체가 사용할 데이터 처리 객체를 준비한다.s
+      BoardDao boardDao = new BoardDaoImpl(conFactory);
+      MemberDao memberDao = new MemberDaoImpl(conFactory);
+      LessonDao lessonDao = new LessonDaoImpl(conFactory);
+      PhotoBoardDao photoBoardDao = new PhotoBoardDaoImpl(conFactory);
+      PhotoFileDao photoFileDao = new PhotoFileDaoImpl(conFactory);
 
       // 클라이언트 명령을 처리할 커맨드 객체를 준비한다.
       commandMap.put("/lesson/add", new LessonAddCommand(lessonDao));
@@ -92,12 +88,16 @@ public class App {
       commandMap.put("/board/detail", new BoardDetailCommand(boardDao));
       commandMap.put("/board/list", new BoardListCommand(boardDao));
       commandMap.put("/board/update", new BoardUpdateCommand(boardDao));
-      
-      commandMap.put("/photoboard/add", new PhotoBoardAddCommand(photoBoardDao,photoFileDao));
-      commandMap.put("/photoboard/delete", new PhotoBoardDeleteCommand(photoBoardDao,photoFileDao));
-      commandMap.put("/photoboard/detail", new PhotoBoardDetailCommand(photoBoardDao,photoFileDao));
+
+      commandMap.put("/photoboard/add",
+          new PhotoBoardAddCommand(conFactory, photoBoardDao, photoFileDao));
+      commandMap.put("/photoboard/delete",
+          new PhotoBoardDeleteCommand(conFactory, photoBoardDao, photoFileDao));
+      commandMap.put("/photoboard/detail",
+          new PhotoBoardDetailCommand(photoBoardDao, photoFileDao));
       commandMap.put("/photoboard/list", new PhotoBoardListCommand(photoBoardDao));
-      commandMap.put("/photoboard/update", new PhotoBoardUpdateCommand(photoBoardDao,photoFileDao));
+      commandMap.put("/photoboard/update",
+          new PhotoBoardUpdateCommand(conFactory, photoBoardDao, photoFileDao));
 
     } catch (Exception e) {
       System.out.println("DBMS에 연결할 수 없습니다!!!!");
@@ -112,7 +112,7 @@ public class App {
       System.out.println("애플리케이션 서버가 시작되었음!");
 
       while (true) {
-        // 클라이언트가 접속하면 별도의 스레드를 생성하여 처리를 맡긴다.
+        // 클라이언트가 접속하면 작업을 수행할 Runnable 객체를 만들어 스레드풀에 맡긴다.
         executorService.submit(new CommandProcessor(serverSocket.accept()));
 
         // 한 클라이언트가 serverstop 명령을 보내면 종료 상태로 설정되고
@@ -120,16 +120,17 @@ public class App {
         if (state == STOP)
           break;
       }
-      // 스레드풀의 실행 종료를 요청한다.
-      // => 스레드풀은 자신이 관리하는 스레드들에게 실행이 종료되었는지 감시한다.
+
+      // 스레드풀에게 실행 종료를 요청한다.
+      // => 스레드풀은 자신이 관리하는 스레드들이 실행이 종료되었는지 감시한다.
       executorService.shutdown();
-      
-      // 스레드풀이 관리하는 모든 스레드가 종료되었는지 매 0.5 초마다 검사한다.
-      // => 스레드풀의 모든 스레드가 실행을 종요했으면 즉시 main thread를 종료한다.
-      while(executorService.isTerminated()) {
+
+      // 스레드풀이 관리하는 모든 스레드가 종료되었는지 매 0.5초 마다 검사한다.
+      // => 스레드풀의 모든 스레드가 실행을 종료했으면 즉시 main 스레드를 종료한다.
+      while (!executorService.isTerminated()) {
         Thread.currentThread().sleep(500);
       }
-      
+
       System.out.println("애플리케이션 서버를 종료함!!");
 
     } catch (Exception e) {
@@ -137,12 +138,6 @@ public class App {
       e.printStackTrace();
     }
 
-    // DBMS와의 연결을 끊는다.
-    try {
-      con.close();
-    } catch (Exception e) {
-      // 연결 끊을 때 발생되는 예외는 무시한다.
-    }
   }
 
   class CommandProcessor implements Runnable {
@@ -185,6 +180,13 @@ public class App {
 
       } catch (Exception e) {
         System.out.println("클라이언트와 통신 오류!");
+        
+      } finally {
+        // 현재 스레드가 클라이언트 요청을 처리했으면 (정상처리든 오류가 발생했든)
+        // 현재 스레드에 보관된 커넥션 객체를 제거해야 한다.
+        // 그래야만 다음 클라이언트 요청이 들어 왔을 때
+        // 새 커넥션 객체를 사용할 것이다.
+        conFactory.clearConnection();
       }
     }
   }
