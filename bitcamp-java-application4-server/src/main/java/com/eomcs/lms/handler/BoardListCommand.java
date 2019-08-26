@@ -24,7 +24,7 @@ public class BoardListCommand implements Command {
       }
     } catch (Exception e) {
       out.println("데이터 목록 조회 실패!");
-      System.out.println(e.getMessage());
+      e.printStackTrace();
     }
   }
 
