@@ -1,46 +1,22 @@
 package com.eomcs.lms;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.Stack;
-import java.util.StringTokenizer;
+import java.util.HashMap;
 
 public class Main {
   public static void main(String[] args) throws IOException {
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-    int N = Integer.parseInt(br.readLine());
-    StringTokenizer st = new StringTokenizer(br.readLine());
-    Stack<Long> stack = new Stack<>();
-    
-    stack.push(Long.parseLong(st.nextToken()));
-    bw.append("0");
-    int max = 1;
-    for(int i=1;i<N;i++) {
-      long now = Long.parseLong(st.nextToken());
-      while(!stack.isEmpty()) {
-        if(now<stack.peek()) {
-          max=i;
-          bw.append(" "+max);
-          stack.push(now);
-          break;
-        } else {
-          stack.pop();
-          max--;
-        }
+    String [] phone_book = {"119","97674223","1195524421"};
+    Solution solution = new Solution();
+    System.out.println(solution.solution(phone_book));
+  }
+}
+class Solution {
+  public boolean solution(String[] phone_book) {
+    for(int i=0;i<phone_book.length;i++) {
+      for(int j=0;j<phone_book.length;j++) {
+        if(i != j && phone_book[i].startsWith(phone_book[j])) return false;
       }
-      if(stack.isEmpty()) {
-        System.out.println("ㅇㅇ");
-        bw.write(" 0");
-        max=i+1;
-      }
-      stack.push(now);
     }
-    bw.flush();
-    br.close();
-    bw.close();
+    return true;
   }
 }
