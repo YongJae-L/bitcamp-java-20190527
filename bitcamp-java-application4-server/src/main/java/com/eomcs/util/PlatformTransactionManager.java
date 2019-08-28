@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 public class PlatformTransactionManager {
   
   private SqlSessionFactory sqlSessionFactory;
-  
+
   public PlatformTransactionManager(SqlSessionFactory sqlSessionFactory) {
     this.sqlSessionFactory = sqlSessionFactory;
   }

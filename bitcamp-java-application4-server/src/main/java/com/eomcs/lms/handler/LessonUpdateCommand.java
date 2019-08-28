@@ -20,12 +20,13 @@ public class LessonUpdateCommand implements Command {
     try {
       int no = Input.getIntValue(in, out, "번호? ");
 
-      Lesson lesson = lessonDao.findBy(no);
-      if (lesson == null) {
+      Lesson lesson1 = lessonDao.findBy(no);
+      if (lesson1 == null) {
         out.println("해당 번호의 데이터가 없습니다!");
         return;
       }
-
+      Lesson lesson = new Lesson();
+      lesson.setNo(no);
       // 사용자로부터 변경할 값을 입력 받는다.
       String str = Input.getStringValue(in, out, "수업명? ");
       if (str.length() > 0) {
