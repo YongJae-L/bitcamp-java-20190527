@@ -42,6 +42,7 @@ public class Test01 {
     class MyHandler implements InvocationHandler {
       @Override
       public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        System.out.println("invoke() 호출됨!");
         // newProxyInstance()가 생성한 객체에 대해 메서드를 호출할 때마다 이 메서드가 호출된다.
         int a = (int) args[0]; // auto-unboxing => ((Integer)args[0]).intValue();
         int b = (int) args[1]; // auto-unboxing => ((Integer)args[1]).intValue();
@@ -55,14 +56,23 @@ public class Test01 {
         return 0;
       }
     }
-
+    /* 배열선언문법
+    int[] arr = new int[3];
+    arr[0] = 100;
+    arr[1] = 200;
+    arr[2] = 300;
+    
+    int[] arr2 = new int[] {100, 200, 300};
+    */
     // Calculator 인터페이스를 구현한 클래스를 만들고 그 인스턴스를 생성하여 리턴한다.
     Calculator c1 = (Calculator) Proxy.newProxyInstance(
-        Calculator.class.getClassLoader(), 
-        new Class[] {Calculator.class}, 
-        new MyHandler());
-
+    /* 파라미터1 */      Calculator.class.getClassLoader(),  // 인터페이스의 클래스저정보를 ~ 클래스로더를 찾음.
+    /* 파라미터2 */      new Class[] {Calculator.class},     // 카큘레이터 인터페이스(class) 정보   -> 인터페이스 타입 목록을 배열의 정보로 넘겨준다. (정보 := 타입)
+    //         //      => 인터페이스타입정보를 1개 넣은 배열 정보를 넘긴다.
+    /* 파라미터3 */      new MyHandler());
+    System.out.println("++++");
     System.out.println(c1.plus(10, 20));
+    System.out.println("----");
     System.out.println(c1.minus(10, 20));
   }
 
