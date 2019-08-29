@@ -20,7 +20,7 @@ public class MybatisDaoFactory {
         (Object proxy, Method method, Object[] args) -> {
             // InvocationHandler 구현체의 람다(lambda) 메서드
           // 자동으로 생성된 DAO 구현체에 대해 메서드를 호출하면 최종적으로 이 메서드가 호출된다.
-          String interfaceName = clazz.getSimpleName();
+          String interfaceName = clazz.getName();
           String methodName = method.getName(); //호출된 메서드 이름 알아내기
           String sqlId = interfaceName + "." + methodName; //이름을 결합해서 인터페이스 아이디를 만든다.
           

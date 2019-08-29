@@ -27,6 +27,5 @@ public class AttachFile {
   public void setBoardNo(int boardNo) {
     this.boardNo = boardNo;
   }
-  
-  
+
 }

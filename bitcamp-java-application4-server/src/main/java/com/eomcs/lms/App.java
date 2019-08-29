@@ -1,4 +1,4 @@
-// v45_1 : Java Proxy를 이용하여 DAO 구현체 자동 생성하기
+// v45_2 : Mybatis의 DAO구현체 자동 생성기 이용하기
 package com.eomcs.lms;
 
 import java.io.BufferedReader;
@@ -95,11 +95,11 @@ public class App {
       commandMap.put("/member/delete", new MemberDeleteCommand(memberDao));
       commandMap.put("/member/search", new MemberSearchCommand(memberDao));
 
-      commandMap.put("/board/add", new BoardAddCommand(boardDao));
-      commandMap.put("/board/delete", new BoardDeleteCommand(boardDao));
-      commandMap.put("/board/detail", new BoardDetailCommand(boardDao));
-      commandMap.put("/board/list", new BoardListCommand(boardDao));
-      commandMap.put("/board/update", new BoardUpdateCommand(boardDao));
+      commandMap.put("/board/add", new BoardAddCommand(sqlSessionFactory));
+      commandMap.put("/board/delete", new BoardDeleteCommand(sqlSessionFactory));
+      commandMap.put("/board/detail", new BoardDetailCommand(sqlSessionFactory));
+      commandMap.put("/board/list", new BoardListCommand(sqlSessionFactory));
+      commandMap.put("/board/update", new BoardUpdateCommand(sqlSessionFactory));
 
       commandMap.put("/photoboard/add",new PhotoBoardAddCommand(txManager, photoBoardDao, photoFileDao));
       commandMap.put("/photoboard/delete",new PhotoBoardDeleteCommand(txManager, photoBoardDao, photoFileDao));

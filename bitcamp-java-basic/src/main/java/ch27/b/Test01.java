@@ -5,7 +5,7 @@ public class Test01 {
 
   public static void main(String[] args) throws Exception {
     
-    Class<?> clazz = Calculator.class;
+    Class<Calculator> clazz = Calculator.class;
     
     System.out.println(clazz.getName()); // 패키지 이름을 포함한 클래스명
     System.out.println(clazz.getCanonicalName()); // 패키지 이름을 포함한 클래스명
