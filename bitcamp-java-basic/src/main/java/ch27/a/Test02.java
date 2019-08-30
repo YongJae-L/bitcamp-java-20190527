@@ -4,15 +4,15 @@ package ch27.a;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import ch13.d.A;
 
 public class Test02 {
 
   public static void main(String[] args) {
-    
     // Calculator, Calculator2, Calculator3 인터페이스를 구현한 
     // 클래스를 만들고 그 인스턴스를 생성하여 리턴한다.
     Object proxy = Proxy.newProxyInstance(
-        Test02.class.getClassLoader(), 
+        A.class.getClassLoader(), 
         new Class[] {
             Calculator.class, 
             Calculator2.class, 
