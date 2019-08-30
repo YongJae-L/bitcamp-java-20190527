@@ -36,7 +36,7 @@ public class ApplicationContext {
     // => 패키지의 경로를 알아낸다.
     String packagePath = packageName.replace(".", "/");
     File fullPath = Resources.getResourceAsFile(packagePath);
-    // => 찾은 클래스의 인스턴스를 생성한다.
+//    // => 찾은 클래스의 인스턴스를 생성한다.
     findCommandClass(fullPath, packageName);
     createCommand();
     
@@ -88,14 +88,36 @@ public class ApplicationContext {
     return false;
   }
 
+  @SuppressWarnings("unused")
+  private boolean isComponent(Class<?> clazz) {
+    // 클래스 정보(타입)에서 애노테이션 데이터를 추출한다.
+    // => 애노테이션 정보를 파라미터로 넘기면 그 애노테이션의 값을 리턴한다.
+    Component comp = clazz.getAnnotation(Component.class);
+    if ( comp == null)
+      return false;
+    
+    return true;
+  }
+  
   private void createCommand() {
     for (Class<?> clazz : classes) {
+      // 클래스 정보에서 Component 애노테이션의 데이터를 추출한다.
+      // => 꺼내고자 하는 애노테이션의 타입을 정확하게 지정해야 한다.
+      Component compAnno = clazz.getAnnotation(Component.class);
+      
+      // 객체를 저장할 때 사용할 이름을 꺼낸다.
+      String beanName = compAnno.value();
+      if (beanName.length() == 0) { // 애노테이션의 빈의 이름을 지정하지 않았다면
+        beanName = clazz.getName(); // 클래스 이름을 빈 이름으로 사용할 것이다.
+      }
+      
+      
       // 기본 생성자가 있으면 그 생성자를 호출하여 인스턴스를 만든다.
       try {
         Constructor<?> defaultConstructor = clazz.getConstructor();
         Command command = (Command)defaultConstructor.newInstance();
-        objPool.put(command.getCommandName(), command);////////////////////////////////////
-        objPool.put(clazz.getName(), defaultConstructor.newInstance());
+        objPool.put(beanName, command);////////////////////////////////////
+        //objPool.put(clazz.getName(), defaultConstructor.newInstance());
         continue;
       } catch (Exception e) {
       }
@@ -109,8 +131,8 @@ public class ApplicationContext {
         Object[] values = prepareParameterValues(params);
         
         // 준비된 값을 가지고 생성자를 통해 인스턴스를 생성한다.
-        Command command = (Command)constructor.newInstance(values);
-        objPool.put(command.getCommandName(), command); /////////////////////////////////////
+        //Command command = (Command)constructor.newInstance(values);
+        objPool.put(beanName, constructor.newInstance(values)); /////////////////////////////////////
       } catch (Exception e) {
       }
     }

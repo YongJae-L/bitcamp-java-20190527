@@ -1,4 +1,4 @@
-// v46_1 : Bean Container 적용하기 
+// v47_1 : 애노테이션을 이용하여 빈 컨테이너가 관리할 객체를 지정하기
 package com.eomcs.lms;
 
 import java.io.BufferedReader;
