@@ -11,7 +11,7 @@ public class Test03 {
     ApplicationContext iocContainer = 
         new ClassPathXmlApplicationContext("ch29/d/application-context-03.xml");
     
-    System.out.println("---------------------------------------");
+    System.out.println("---------------------------------------"); 
     
     // 다른 객체의 프로퍼티에서 생성한 객체는 별도로 꺼낼 수 없다.
     //BlackBox bb1 = (BlackBox) iocContainer.getBean("bb1"); // 예외 발생!

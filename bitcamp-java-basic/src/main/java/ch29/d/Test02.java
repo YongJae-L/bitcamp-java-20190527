@@ -14,7 +14,7 @@ public class Test02 {
     System.out.println("---------------------------------------");
     
     BlackBox bb1 = (BlackBox) iocContainer.getBean("bb1");
-    Car c1 = (Car) iocContainer.getBean("c1");
+    Car c1 = (Car) iocContainer.getBean("c1"); 
     Car c2 = (Car) iocContainer.getBean("c2");
     Car c3 = (Car) iocContainer.getBean("c3");
     

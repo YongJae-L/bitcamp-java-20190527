@@ -9,7 +9,7 @@ public class Car {
   private int valve;
   private boolean auto;
   private Date createdDate;
-  private BlackBox blackBox;
+  private BlackBox blackBox; 
   
   public Car() {
     System.out.println("Car()");

@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class Car3 {
+public class Car3 { 
   private String maker;
   private String model;
   private int cc;

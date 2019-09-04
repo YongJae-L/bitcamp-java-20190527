@@ -16,12 +16,14 @@ public class BlackBox {
     return maker;
   }
   public void setMaker(String maker) {
+System.out.println("BlacBox.setMaker()");
     this.maker = maker;
   }
   public String getModel() {
     return model;
   }
   public void setModel(String model) {
+    System.out.println("BlacBox.setModel()");
     this.model = model;
   }
   

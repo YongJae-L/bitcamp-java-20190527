@@ -3,7 +3,7 @@ package ch29.e;
 import java.util.Arrays;
 import java.util.Date;
 
-public class Car {
+public class Car { 
   private String maker;
   private String model;
   private int cc;

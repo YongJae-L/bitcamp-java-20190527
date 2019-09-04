@@ -2,7 +2,7 @@ package ch29.e;
 
 import java.util.Properties;
 
-public class Tire2 {
+public class Tire2 { 
   private String maker;
   private Properties props;
   

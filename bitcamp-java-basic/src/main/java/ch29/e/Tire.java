@@ -7,7 +7,7 @@ public class Tire {
   private int wheel;
   
   @Override
-  public String toString() {
+  public String toString() { 
     return "Tire [maker=" + maker + ", width=" + width + ", ratio=" + ratio + ", wheel=" + wheel
         + "]";
   }

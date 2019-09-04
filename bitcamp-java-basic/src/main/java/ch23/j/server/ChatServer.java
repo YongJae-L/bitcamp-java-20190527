@@ -60,7 +60,8 @@ public class ChatServer {
 
           // 채팅 방에 참여한 모든 사람들에게 메시지를 전달한다.
           // => 메시지를 전문적으로 보내는 일을 하는 객체에 맡긴다.
-          new Thread(new MessageSender(message)).start();
+         // new Thread(new MessageSender(message)).start();
+          send(message);
           
         }
         //채팅 방에 참여한 모든 사람들에게 퇴장 메시지를 전달한다.
