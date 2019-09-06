@@ -14,3 +14,11 @@ public interface MemberDao {
   int delete(int no) throws Exception;
   Member findByEmailPassword(Map<String,Object> params) throws Exception;
 }
+
+
+
+
+
+
+
+

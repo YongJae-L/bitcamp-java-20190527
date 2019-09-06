@@ -20,6 +20,8 @@ public class Test04 {
     
     System.out.println("---------------------------------------");
     
+    System.out.println(iocContainer.getBean("sub1Car"));
+    System.out.println(iocContainer.getBean("sub1Car"));
     System.out.println(iocContainer.getBean("car1"));
     System.out.println(iocContainer.getBean("car2"));
   }

@@ -1,90 +1,57 @@
 package com.eomcs.lms;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.net.Socket;
-import java.util.Scanner;
-
 public class Main {
-  
-  String name;
-  String host;
-  int port;
-
-  public Main(String host, int port) {
-    this.host = host;
-    this.port = port;
-  }
-
-  private void service() {
-    try (Socket socket = new Socket(host, port);
-        PrintStream out = new PrintStream(socket.getOutputStream());
-        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        Scanner keyboard = new Scanner(System.in)) {
-      
-      new Thread(new MessageReceiver(in)).start();
-      
-      // 닉네임 입력하기
-      this.name = keyboard.nextLine();
-      out.println(name);
-      out.flush();
-      
-      String message = "";
-      
-      while (!message.equals("quit")) {
-        System.out.print(">>");
-        message = keyboard.nextLine();
-        
-        if (message.length() != 0) {
-          out.println(message);
-          out.flush();
-          
-//          if (message.equals("quit"))
-//            break;
-          
-        }
-
-      }
-      System.out.println("서버와 연결 끊음");
-      System.exit(0);
-
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  public class MessageReceiver implements Runnable {
-
-    BufferedReader in;
-
-    public MessageReceiver(BufferedReader in) {
-      this.in = in;
-    }
-
-    @Override
-    public void run() {
-      while (true) {
-        try {
-          String message = in.readLine();
-          System.out.println(message);
-        } catch (Exception e) {
-          System.out.println("메시지 수신 중 오류 발생!");
-          System.out.println("서버가 통신을 끊음");
-          return;
-        }
-      }
-    }
-  }
-
   public static void main(String[] args) {
-//    if (args.length != 2) {
-//      System.out.println("실행방법: java -Dfile.encoding=UTF-8 -cp bin/main test.ChatClient 서버주소 포트번호");
-//      return;
-//    }
 
-    Main app = new Main("192.168.0.22", 9999);
-    app.service();
+    int [] answers = {1,3,2,4,2};
+    System.out.println(solution(answers));
+
   }
 
+  private static int[] solution(int[] answers) {
+    int[] answer1 = {1,2,3,4,5};
+    int[] answer2 = {2,1,2,3,2,4,2,5};
+    int[] answer3 = {3,3,1,1,2,2,4,4,5,5};
+    int a=0,b=0,c=0;
+    for(int i=0;i<40;i++){
+      if(answers[i%5] == answer1[i%5]){
+        a++;
+      }
+      if (answers[i%5] == answer2[i%8]) {
+        b++;
+      }
+      if (answers[i%5] == answer3[i%10]) {
+        c++;
+      }
+    }
+    System.out.println(a);
+    System.out.println(b);
+    System.out.println(c);
+    
+    if(a==b && b==c) {
+      int[] arr = {1,2,3};
+      return arr; 
+    } else if (a==b && a>c) {
+      int[] arr = {1,2};
+      return arr;
+    } else if (b==c && b>a) {
+      int[] arr = {2,3};
+      return arr;
+    } else if (a==c && a>b) {
+      int[] arr = {1,3};
+      return arr;
+    } else {
+      int temp = Math.max(Math.max(a, b), c);
+      if(temp == a) {
+        int[] arr = {1};
+        return arr;
+      } else if (temp == b) {
+        int[] arr = {2};
+        return arr;
+      } else {
+        int[] arr = {3};
+        return arr;
+      }
+    }
+  }
 }

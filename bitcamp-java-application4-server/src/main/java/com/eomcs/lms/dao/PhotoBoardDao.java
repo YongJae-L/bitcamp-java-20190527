@@ -3,7 +3,7 @@ package com.eomcs.lms.dao;
 import java.util.List;
 import com.eomcs.lms.domain.PhotoBoard;
 
-// DAO의 사용 규칙을 정의한다.
+// DAO 사용 규칙을 정의한다.
 public interface PhotoBoardDao {
   int insert(PhotoBoard photoBoard) throws Exception;
   List<PhotoBoard> findAll() throws Exception;
@@ -13,3 +13,11 @@ public interface PhotoBoardDao {
   int delete(int no) throws Exception;
   int increaseViewCount(int no) throws Exception;
 }
+
+
+
+
+
+
+
+

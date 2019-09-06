@@ -12,12 +12,12 @@ public class Test01 {
         new AnnotationConfigApplicationContext(AppConfig1.class);
     
     System.out.println("---------------------------------------");
-    
     String[] names = iocContainer.getBeanDefinitionNames();
     for (String name : names) {
       System.out.printf("%s ==> %s\n", 
           name, iocContainer.getBean(name).getClass().getName());
     }
+    System.out.println("---------------------------------------");
   }
 }
 

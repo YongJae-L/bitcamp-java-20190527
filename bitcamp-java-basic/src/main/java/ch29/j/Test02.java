@@ -13,14 +13,14 @@ public class Test02 {
     // Java config 클래스로 인식하여 자동으로 처리한다.
     ApplicationContext iocContainer = 
         new AnnotationConfigApplicationContext("ch29.j");
-    
+
     System.out.println("---------------------------------------");
-    
     String[] names = iocContainer.getBeanDefinitionNames();
     for (String name : names) {
       System.out.printf("%s ==> %s\n", 
           name, iocContainer.getBean(name).getClass().getName());
     }
+    System.out.println("---------------------------------------");
   }
 }
 
