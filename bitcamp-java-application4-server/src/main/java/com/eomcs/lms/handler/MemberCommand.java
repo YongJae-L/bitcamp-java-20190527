@@ -1,16 +1,14 @@
 package com.eomcs.lms.handler;
 
-import java.io.BufferedReader;
-import java.io.PrintStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
-import com.eomcs.util.Input;
-import com.eomcs.util.ServletRequest;
-import com.eomcs.util.ServletResponse;
 
 @Component
 public class MemberCommand {
@@ -20,7 +18,7 @@ public class MemberCommand {
     this.memberDao = memberDao;
   }
   @RequestMapping("/member/form") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void form(ServletRequest request, ServletResponse response) {
+  public void form(ServletRequest request, ServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>유저 등록폼</title></head>");
     out.println("<body><h1>유저 등록</h1>");
@@ -36,7 +34,7 @@ public class MemberCommand {
   }
   
   @RequestMapping("/member/add") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void add(ServletRequest request, ServletResponse response) {
+  public void add(ServletRequest request, ServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>유저 등록</title>"
         + "<meta http-equiv='Refresh' content='1;url=/member/list'>"
@@ -59,7 +57,7 @@ public class MemberCommand {
   }
   
   @RequestMapping("/member/delete") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void delete(ServletRequest request, ServletResponse response) {
+  public void delete(ServletRequest request, ServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>수업 삭제</title>"
         + "<meta http-equiv='Refresh' content='1;url=/member/list'>"
@@ -82,7 +80,7 @@ public class MemberCommand {
   }
   
   @RequestMapping("/member/detail") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void detail(ServletRequest request, ServletResponse response) {
+  public void detail(ServletRequest request, ServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>유저 상세</title></head>");
     out.println("<body><h1>유저 상세</h1>");
@@ -113,7 +111,7 @@ public class MemberCommand {
   }
   
   @RequestMapping("/member/list") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void list(ServletRequest request, ServletResponse response) {
+  public void list(ServletRequest request, ServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>유저 목록</title>"
         + "<link rel=\'stylesheet\' href=\'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\' integrity=\'sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\' crossorigin=\'anonymous\'>"
@@ -139,25 +137,45 @@ public class MemberCommand {
   }
   
   @RequestMapping("/member/search") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void search(BufferedReader in, PrintStream out) {
+  public void search(ServletRequest request, ServletResponse response) throws IOException {
+    PrintWriter out = response.getWriter();
+    out.println("<html><head><title>회원 검색</title>"
+        + "<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>"
+        + "</head>");
+    out.println("<body><h1>회원 검색</h1>");
+    
     try {
-      String keyword = Input.getStringValue(in, out, "검색어? ");
+      out.println("<table class='table table-hover'>");
+      out.println("<tr><th>번호</th><th>이름</th><th>이메일</th><th>전화</th><th>등록일</th></tr>");
       
-      List<Member> members = memberDao.findByKeyword(keyword);
+      List<Member> members = memberDao.findByKeyword(
+          request.getParameter("keyword"));
       for (Member member : members) {
-        out.printf("%s, %s, %s, %s, %s\n", 
-            member.getNo(), member.getName(), member.getEmail(), 
-            member.getTel(), member.getRegisteredDate());
+        out.printf("<tr>"
+            + "<td>%d</td>"
+            + "<td><a href='/member/detail?no=%d'>%s</a></td>"
+            + "<td>%s</td>"
+            + "<td>%s</td>"
+            + "<td>%s</td></tr>\n", 
+            member.getNo(),
+            member.getNo(),
+            member.getName(), 
+            member.getEmail(), 
+            member.getTel(),
+            member.getRegisteredDate());
       }
-
+      out.println("</table>");
+      
     } catch (Exception e) {
-      out.println("데이터 목록 조회에 실패했습니다!");
-      System.out.println(e.getMessage());
+      out.println("<p>데이터 검색에 실패했습니다!</p>");
+      throw new RuntimeException(e);
+    
+    } finally {
+      out.println("</body></html>");
     }
   }
-
   @RequestMapping("/member/update") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void update(ServletRequest request, ServletResponse response) {
+  public void update(ServletRequest request, ServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>유저 변경</title>"
         + "<meta http-equiv='Refresh' content='1;url=/member/list'>"

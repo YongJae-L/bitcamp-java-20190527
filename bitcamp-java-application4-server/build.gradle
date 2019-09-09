@@ -1,7 +1,18 @@
 plugins {
     id 'java'
-    id 'application'
-    id 'eclipse'
+    // 프로젝트를 웹 애플리케이션 프로젝트로 사용할 프로젝트로 전환
+    id 'war'
+    id 'eclipse-wtp'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}
+
+war {
+  archiveName = 'app4.war'
 }
 
 repositories {
@@ -33,10 +44,10 @@ dependencies {
     // Apache HttpClient
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.9'
     
+    // Servlet API
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    
+    
     implementation 'com.google.guava:guava:27.1-jre'
     testImplementation 'junit:junit:4.12'
-}
-
-application {
-    mainClassName = 'com.eomcs.lms.App'
 }

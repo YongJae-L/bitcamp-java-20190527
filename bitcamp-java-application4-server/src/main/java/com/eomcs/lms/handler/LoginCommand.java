@@ -1,13 +1,14 @@
 package com.eomcs.lms.handler;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
-import com.eomcs.util.ServletRequest;
-import com.eomcs.util.ServletResponse;
 
 @Component
 public class LoginCommand {
@@ -19,7 +20,7 @@ public class LoginCommand {
   }
 
   @RequestMapping("/auth/form")
-  public void form(ServletRequest request, ServletResponse response) {
+  public void form(ServletRequest request, ServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>로그인 폼</title></head>");
     out.println("<body><h1>로그인 폼</h1>");
@@ -32,7 +33,7 @@ public class LoginCommand {
   }
   
   @RequestMapping("/auth/login") 
-  public void execute(ServletRequest request, ServletResponse response) {
+  public void execute(ServletRequest request, ServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>로그인 결과</title></head>");
     out.println("<body><h1>로그인</h1>");
