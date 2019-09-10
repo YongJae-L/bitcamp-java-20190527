@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.eomcs.util.RequestMappingHandlerMapping;
 import com.eomcs.util.RequestMappingHandlerMapping.RequestHandler;
 
-@WebServlet("/*")
+@WebServlet("/*") 
 public class App implements Servlet {
 
   // Log4j의 로그 출력 도구를 준비한다.
