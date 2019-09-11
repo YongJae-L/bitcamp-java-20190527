@@ -21,6 +21,9 @@ public class Servlet01 extends GenericServlet {
     // 출력 스트림을 꺼내기 전에 출력할 때 사용할 문자표(charset)를 지정하지 않으면 
     // 기본이 영어 문자로 간주하여 아스키 코드(ASCII)로 변환하여 출력한다.
     // 자바(Unicode2;UTF-16) ===> 출력문자(ASCII) 
+    res.setContentType("text/plain;charset=UTF-8"); // MIME TYPE ; 인코딩할 때 사용할 문자표
+    //기본 자바 UTF-16에서 UTF-8로 변환
+    // Multipurpose Internet Mail Extensions
     PrintWriter out = res.getWriter();
     out.println("Hello!");
     out.println("안녕하세요!");

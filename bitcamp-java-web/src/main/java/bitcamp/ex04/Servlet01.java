@@ -24,7 +24,7 @@ public class Servlet01 extends GenericServlet {
     // - 웹 페이지의 폼(method='GET' 일 때)에서 전송 버튼을 클릭하면 GET 요청을 보낸다.
     //
     // 테스트
-    // - http://localhost:8080/java-web/ex04/test01.html 실행
+    // - http://localhost:8888/bitcamp-java-web/ex04/test01.html 실행
     //
     
     // 웹 브라우저가 보낸 데이터 읽기
