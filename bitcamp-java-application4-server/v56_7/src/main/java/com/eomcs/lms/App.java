@@ -1,8 +1,8 @@
-// v56_7 : 필터를 활용하여 로그인 여부 검사하기
+// v56_7 : 
 package com.eomcs.lms;
 
 // 작업:
-// => AuthFilter변경
+// => LoginServlet 변경
 
 // dummy 클래스!
 // => 기존 버전에서 계속 존재했던 클래스라서 그대로 둠.
