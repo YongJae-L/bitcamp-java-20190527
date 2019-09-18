@@ -14,14 +14,21 @@ import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
 
 @WebServlet("/photoboard/detail")
-public class PhotoDetailServlet extends HttpServlet {
+public class PhotoBoardDetailServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
+  
+  // 이 클래스에서 로그를 출력할 일이 있다면 다음과 같이 로거를 만들어 사용하라!
+  /*
+  private static final Logger logger = 
+      LogManager.getLogger(PhotoBoardAddServlet.class);
+  */
   
   private PhotoBoardDao photoBoardDao;
   
   @Override
   public void init() throws ServletException {
-    ApplicationContext appCtx = (ApplicationContext)getServletContext().getAttribute("iocContainer");
+    ApplicationContext appCtx = 
+        (ApplicationContext) getServletContext().getAttribute("iocContainer");
     photoBoardDao = appCtx.getBean(PhotoBoardDao.class);
   }
 
@@ -76,5 +83,4 @@ public class PhotoDetailServlet extends HttpServlet {
       out.println("</body></html>");
     }
   }
-
 }

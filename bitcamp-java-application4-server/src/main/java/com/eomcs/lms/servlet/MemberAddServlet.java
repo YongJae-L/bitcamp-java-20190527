@@ -2,28 +2,31 @@ package com.eomcs.lms.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.io.StringWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
-import org.springframework.web.bind.annotation.RequestMapping;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
 @WebServlet("/member/add")
-public class MemberAddServlet extends HttpServlet{
-  /**
-   * 
-   */
+public class MemberAddServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
+
+  private static final Logger logger = 
+      LogManager.getLogger(MemberAddServlet.class);
+
   private MemberDao memberDao;
 
   @Override
   public void init() throws ServletException {
-    ApplicationContext appCtx = (ApplicationContext)getServletContext().getAttribute("iocContainer");
+    ApplicationContext appCtx = 
+        (ApplicationContext) getServletContext().getAttribute("iocContainer");
     memberDao = appCtx.getBean(MemberDao.class);
   }
 
@@ -31,192 +34,45 @@ public class MemberAddServlet extends HttpServlet{
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-    out.println("<html><head><title>유저 등록폼</title></head>");
-    out.println("<body><h1>유저 등록</h1>");
+    out.println("<html><head><title>회원 등록폼</title></head>");
+    out.println("<body><h1>회원 등록폼</h1>");
     out.println("<form action='/member/add' method='post'>");
-    out.println("이름: <input type='text' name = 'name'><br>\n");
-    out.println("이메일: <input type='text' name = 'email'><br>\n");
-    out.println("암호: <input type='text' name = 'password'><br>\n");
-    out.println("사진: <input type='text' name = 'photo'><br>\n");
-    out.println("전화: <input type='text' name = 'tel'><br>\n");
+    out.println("이름: <input type='text' name='name'><br>");
+    out.println("이메일: <input type='text' name='email'><br>");
+    out.println("암호: <input type='text' name='password'><br>");
+    out.println("사진: <input type='text' name='photo'><br>");
+    out.println("전화: <input type='text' name='tel'><br>");
     out.println("<button>등록</button>");
     out.println("</form>");
     out.println("</body></html>");
   }
-  
+
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-    out.println("<html><head><title>유저 등록</title>"
-        + "<meta http-equiv='Refresh' content='1;url=/member/list'>"
-        + "</head>");
-    out.println("<body><h1>유저 등록</h1>");
     try {
       Member member = new Member();
+
       member.setName(request.getParameter("name"));
       member.setEmail(request.getParameter("email"));
       member.setPassword(request.getParameter("password"));
       member.setPhoto(request.getParameter("photo"));
       member.setTel(request.getParameter("tel"));
       memberDao.insert(member);
-      out.println("저장하였습니다.");
-      
+      response.sendRedirect("/member/list");
     } catch (Exception e) {
-      out.println("데이터 저장에 실패했습니다!");
-      System.out.println(e.getMessage());
-    }
-  }
-  
-  @RequestMapping("/member/delete") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    PrintWriter out = response.getWriter();
-    out.println("<html><head><title>수업 삭제</title>"
-        + "<meta http-equiv='Refresh' content='1;url=/member/list'>"
-        + "</head>");
-    out.println("<body><h1>수업 삭제</h1>");
-    try {
-      int no = Integer.parseInt(request.getParameter("no"));
-
-      if (memberDao.delete(no) > 0) {
-        out.println("데이터를 삭제하였습니다.");
-      } else {
-        out.println("해당 데이터가 없습니다.");
-      }
-
-    } catch (Exception e) {
-      out.println("데이터 삭제에 실패했습니다!");
-      System.out.println(e.getMessage());
-    }
-
-  }
-  
-  @RequestMapping("/member/detail") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void detail(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    PrintWriter out = response.getWriter();
-    out.println("<html><head><title>유저 상세</title></head>");
-    out.println("<body><h1>유저 상세</h1>");
-    try {
-      int no = Integer.parseInt(request.getParameter("no"));
-      
-      Member member = memberDao.findBy(no);
-      if (member == null) {
-        out.println("해당 번호의 데이터가 없습니다!");
-        return;
-      }
-      out.println("<form action='/member/update'>");
-      out.printf("번호 : <input type='text' name='no' value='%d'><br>\n",member.getNo());
-      out.printf("이름 : <input type='text' name='name' value='%s'><br>\n",member.getName());
-      out.printf("이메일 : <input type='text' name='email' value='%s'><br>\n",member.getEmail());
-      out.printf("암호 : <input type='text' name='password' value='%s'><br>\n",member.getPassword());
-      out.printf("사진 : <input type='text' name='photo' value='%s'><br>\n",member.getPhoto());
-      out.printf("전화 : <input type='text' name='tel' value='%s'><br>\n",member.getTel());
-      out.printf("가입일 : <input type='text' name='regDate' value='%s' readonly><br>\n",member.getRegisteredDate());
-      out.println("<button>변경</button>");
-      out.printf("<a href='/member/delete?no=%d'>삭제</a>",member.getNo());
-      out.println("</form>");
-    } catch (Exception e) {
-      out.println("데이터 조회에 실패했습니다!");
-      System.out.println(e.getMessage());
-    }
-    out.println("</body></html>");
-  }
-  
-  @RequestMapping("/member/list") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void list(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    PrintWriter out = response.getWriter();
-    out.println("<html><head><title>유저 목록</title>"
-        + "<link rel=\'stylesheet\' href=\'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\' integrity=\'sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\' crossorigin=\'anonymous\'>"
-        + "</head>");
-    out.println("<body><h1>유저 목록</h1>");
-    out.println("<a href='/member/form'>유저 추가</a><br>");
-    try {
-      out.println("<table class='table'>");
-      out.println("<tr><th>번호</th><th>이름</th><th>이메일</th><th>전화번호</th><th>등록일</th></tr>");
-      List<Member> members = memberDao.findAll();
-      for (Member member : members) {
-        out.printf("<tr><td><a href='/member/detail?no=%d'>%d</td>"
-            +"<td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>\n",
-            member.getNo(),member.getNo(), member.getName(), member.getEmail(),
-            member.getTel(), member.getRegisteredDate());
-      }
-      out.println("</table>");
-    } catch (Exception e) {
-      out.println("데이터 목록 조회에 실패했습니다!");
-      System.out.println(e.getMessage());
-    }
-    out.println("</body></html>");
-  }
-  
-  @RequestMapping("/member/search") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void search(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    PrintWriter out = response.getWriter();
-    out.println("<html><head><title>회원 검색</title>"
-        + "<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>"
-        + "</head>");
-    out.println("<body><h1>회원 검색</h1>");
-    
-    try {
-      out.println("<table class='table table-hover'>");
-      out.println("<tr><th>번호</th><th>이름</th><th>이메일</th><th>전화</th><th>등록일</th></tr>");
-      
-      List<Member> members = memberDao.findByKeyword(
-          request.getParameter("keyword"));
-      for (Member member : members) {
-        out.printf("<tr>"
-            + "<td>%d</td>"
-            + "<td><a href='/member/detail?no=%d'>%s</a></td>"
-            + "<td>%s</td>"
-            + "<td>%s</td>"
-            + "<td>%s</td></tr>\n", 
-            member.getNo(),
-            member.getNo(),
-            member.getName(), 
-            member.getEmail(), 
-            member.getTel(),
-            member.getRegisteredDate());
-      }
-      out.println("</table>");
-      
-    } catch (Exception e) {
-      out.println("<p>데이터 검색에 실패했습니다!</p>");
-      throw new RuntimeException(e);
-    
-    } finally {
+      response.setContentType("text/html;charset=UTF-8");
+      PrintWriter out = response.getWriter();
+      out.println("<html><head><title>회원 등록</title></head>");
+      out.println("<body><h1>회원 등록</h1>");
+      out.println("<p>데이터 저장에 실패했습니다!</p>");
       out.println("</body></html>");
+      response.setHeader("Refresh", "1;url=/member/list");
+
+      // 왜 오류가 발생했는지 자세한 사항은 로그로 남긴다.
+      StringWriter strOut = new StringWriter();
+      e.printStackTrace(new PrintWriter(strOut));
+      logger.error(out.toString());
+
     }
-  }
-  @RequestMapping("/member/update") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void update(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    PrintWriter out = response.getWriter();
-    out.println("<html><head><title>유저 변경</title>"
-        + "<meta http-equiv='Refresh' content='1;url=/member/list'>"
-        + "</head>");
-    out.println("<body><h1>유저 변경</h1>");
-    try {
-      int no = Integer.parseInt(request.getParameter("no"));
-      
-      Member member = memberDao.findBy(no);
-      if (member == null) {
-        out.println("해당 번호의 데이터가 없습니다!");
-        return;
-      }
-      
-      // 사용자로부터 변경할 값을 입력 받는다.
-      Member data = new Member();
-      data.setNo(no);
-      data.setName(request.getParameter("name"));
-      data.setEmail((request.getParameter("email")));
-      data.setPassword((request.getParameter("password")));
-      data.setPhoto((request.getParameter("photo")));
-      data.setTel((request.getParameter("tel")));
-      
-      memberDao.update(data);
-      out.println("데이터를 변경하였습니다.");
-    } catch (Exception e) {
-      out.println("데이터 변경에 실패했습니다!");
-      System.out.println(e.getMessage());
-    }
-    out.println("</body></html>");
   }
 }

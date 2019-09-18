@@ -2,11 +2,14 @@ package com.eomcs.lms.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
@@ -15,12 +18,16 @@ import com.eomcs.lms.domain.Board;
 public class BoardAddServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
   
+  private static final Logger logger = 
+      LogManager.getLogger(BoardAddServlet.class);
+  
   private BoardDao boardDao;
   
   @Override
   public void init() throws ServletException {
-     ApplicationContext appCtx = (ApplicationContext)getServletContext().getAttribute("iocContainer");
-     boardDao = appCtx.getBean(BoardDao.class);
+    ApplicationContext appCtx = 
+        (ApplicationContext) getServletContext().getAttribute("iocContainer");
+    boardDao = appCtx.getBean(BoardDao.class);
   }
   
   @Override
@@ -38,24 +45,25 @@ public class BoardAddServlet extends HttpServlet {
   
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-    out.println("<html><head><title>게시물 등록</title>"
-        + "<meta http-equiv='Refresh' content='1;url=/board/list'>"
-        + "</head>");
-    out.println("<body><h1>게시물 등록</h1>");
     try {
       Board board = new Board();
       board.setContents(request.getParameter("contents"));
-
       boardDao.insert(board);
-      out.println("<p>저장하였습니다.</p>");
-      
+      response.sendRedirect("/board/list");
     } catch (Exception e) {
+      response.setContentType("text/html;charset=UTF-8");
+      PrintWriter out = response.getWriter();
+      out.println("<html><head><title>게시물 등록</title></head>");
+      out.println("<body><h1>게시물 등록</h1>");
       out.println("<p>데이터 저장에 실패했습니다!</p>");
-      throw new RuntimeException(e);
+      out.println("</body></html>");
+      response.setHeader("Refresh", "1;url=/board/list");
+      
+      // 왜 오류가 발생했는지 자세한 사항은 로그로 남긴다.
+      StringWriter strOut = new StringWriter();
+      e.printStackTrace(new PrintWriter(strOut));
+      logger.error(out.toString());
     }
-    out.println("</body></html>");
   }
 
 }

@@ -18,34 +18,31 @@ public class LessonDeleteServlet extends HttpServlet {
 
   @Override
   public void init() throws ServletException {
-    ApplicationContext appCtx = (ApplicationContext)getServletContext().getAttribute("iocContainer");
+    ApplicationContext appCtx = 
+        (ApplicationContext) getServletContext().getAttribute("iocContainer");
     lessonDao = appCtx.getBean(LessonDao.class);
   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-    out.println("<html><head><title>수업 삭제</title>"
-        + "<meta http-equiv='Refresh' content='1;url=/lesson/list'>"
-        + "</head>");
-    out.println("<body><h1>수업 삭제</h1>");
+    
     try {
-
       int no = Integer.parseInt(request.getParameter("no"));
       
-      if (lessonDao.delete(no) > 0) {
-        out.println("삭제하였습니다.");
-      } else {
-        out.println("해당 데이터가 없습니다.");
+      if (lessonDao.delete(no) == 0) {
+        throw new Exception("해당 데이터가 없습니다.");
       }
+      response.sendRedirect("/lesson/list");
     } catch (Exception e) {
-      out.println("데이터 삭제에 실패했습니다!");
-      System.out.println(e.getMessage());
+      response.setContentType("text/html;charset=UTF-8");
+      PrintWriter out = response.getWriter();
+      out.println("<html><head><title>수업 삭제</title></head>");
+      out.println("<body><h1>수업 삭제</h1>");
+      out.println("<p>데이터 삭제에 실패했습니다!</p>");
+      out.println("</body></html>");
+      response.setHeader("Refresh", "1;url=/lesson/list");
     }
-    out.println("</body></html>");
   }
-
 }
 
 
