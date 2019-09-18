@@ -1,11 +1,11 @@
-// v56_2 : 리스너를 이용하여 스프링 IoC 컨테이너 준비하기
+// v56_4: 포워딩과 인클루딩 활용
 package com.eomcs.lms;
 
 // 작업:
-// => ContextLoaderListener 리스너 생성
-// => AppInitServlet의 역할을 ContextLoaderListener로 이전
-// => web.xml 변경
-// => AppInitServlet 삭제
+// => 등록, 변경, 삭제 중 오류 발생할 때 오류 내용을 출력한느 서블릿으로 포워딩 하기
+// => HeaderServlet 생성
+// => FooterServlet 생성
+// => 모든 출력에 헤더와 풋터 서블릿의 출력을 인클루딩 하기
 
 // dummy 클래스!
 // => 기존 버전에서 계속 존재했던 클래스라서 그대로 둠.
