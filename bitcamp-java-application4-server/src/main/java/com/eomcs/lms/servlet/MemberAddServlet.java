@@ -1,28 +1,39 @@
-package com.eomcs.lms.handler;
+package com.eomcs.lms.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import org.springframework.stereotype.Component;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
-@Component
-public class MemberCommand {
+@WebServlet("/member/add")
+public class MemberAddServlet extends HttpServlet{
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
   private MemberDao memberDao;
 
-  public MemberCommand(MemberDao memberDao) {
-    this.memberDao = memberDao;
+  @Override
+  public void init() throws ServletException {
+    ApplicationContext appCtx = (ApplicationContext)getServletContext().getAttribute("iocContainer");
+    memberDao = appCtx.getBean(MemberDao.class);
   }
-  @RequestMapping("/member/form") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void form(ServletRequest request, ServletResponse response) throws IOException {
+
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>유저 등록폼</title></head>");
     out.println("<body><h1>유저 등록</h1>");
-    out.println("<form action='/member/add'>");
+    out.println("<form action='/member/add' method='post'>");
     out.println("이름: <input type='text' name = 'name'><br>\n");
     out.println("이메일: <input type='text' name = 'email'><br>\n");
     out.println("암호: <input type='text' name = 'password'><br>\n");
@@ -33,8 +44,9 @@ public class MemberCommand {
     out.println("</body></html>");
   }
   
-  @RequestMapping("/member/add") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void add(ServletRequest request, ServletResponse response) throws IOException {
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>유저 등록</title>"
         + "<meta http-equiv='Refresh' content='1;url=/member/list'>"
@@ -57,7 +69,7 @@ public class MemberCommand {
   }
   
   @RequestMapping("/member/delete") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void delete(ServletRequest request, ServletResponse response) throws IOException {
+  public void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>수업 삭제</title>"
         + "<meta http-equiv='Refresh' content='1;url=/member/list'>"
@@ -80,7 +92,7 @@ public class MemberCommand {
   }
   
   @RequestMapping("/member/detail") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void detail(ServletRequest request, ServletResponse response) throws IOException {
+  public void detail(HttpServletRequest request, HttpServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>유저 상세</title></head>");
     out.println("<body><h1>유저 상세</h1>");
@@ -111,7 +123,7 @@ public class MemberCommand {
   }
   
   @RequestMapping("/member/list") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void list(ServletRequest request, ServletResponse response) throws IOException {
+  public void list(HttpServletRequest request, HttpServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>유저 목록</title>"
         + "<link rel=\'stylesheet\' href=\'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\' integrity=\'sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\' crossorigin=\'anonymous\'>"
@@ -137,7 +149,7 @@ public class MemberCommand {
   }
   
   @RequestMapping("/member/search") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void search(ServletRequest request, ServletResponse response) throws IOException {
+  public void search(HttpServletRequest request, HttpServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>회원 검색</title>"
         + "<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>"
@@ -175,7 +187,7 @@ public class MemberCommand {
     }
   }
   @RequestMapping("/member/update") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void update(ServletRequest request, ServletResponse response) throws IOException {
+  public void update(HttpServletRequest request, HttpServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>유저 변경</title>"
         + "<meta http-equiv='Refresh' content='1;url=/member/list'>"

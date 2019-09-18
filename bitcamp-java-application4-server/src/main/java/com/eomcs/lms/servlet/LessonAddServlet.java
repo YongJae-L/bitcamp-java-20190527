@@ -1,31 +1,40 @@
-package com.eomcs.lms.handler;
+package com.eomcs.lms.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.List;
+import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import org.springframework.stereotype.Component;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
-@Component
-public class LessonCommand {
-
+@WebServlet("/lesson/add")
+public class LessonAddServlet extends HttpServlet {
+  private static final long serialVersionUID = 1L;
+  
   private LessonDao lessonDao;
 
-  public LessonCommand(LessonDao lessonDao) {
-    this.lessonDao = lessonDao;
+  @Override
+  public void init() throws ServletException {
+    ApplicationContext appCtx = (ApplicationContext)getServletContext().getAttribute("iocContainer");
+    lessonDao = appCtx.getBean(LessonDao.class);
   }
 
-  @RequestMapping("/lesson/form") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void form(ServletRequest request, ServletResponse response) throws IOException {
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>수업 등록폼</title></head>");
     out.println("<body><h1>수업 등록폼</h1>");
-    out.println("<form action='/lesson/add'>");
+    out.println("<form action='/lesson/add' method='post'>");
     out.println("수업명: <input type='text' name = 'title'><br>\n");
     out.println("설명: <textarea name='contents' rows='5' cols='50'></textarea><br>");
     out.println("시작일: <input type='text' name = 'startDate'><br>\n");
@@ -39,8 +48,9 @@ public class LessonCommand {
     out.println("</body></html>");
   }
   
-  @RequestMapping("/lesson/add")
-  public void add(ServletRequest request, ServletResponse response) throws IOException {
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>수업 등록</title>"
         + "<meta http-equiv='Refresh' content='1;url=/lesson/list'>"

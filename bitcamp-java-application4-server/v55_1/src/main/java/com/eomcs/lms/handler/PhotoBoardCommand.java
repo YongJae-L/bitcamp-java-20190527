@@ -32,20 +32,20 @@ public class PhotoBoardCommand {
     this.photoFileDao = photoFileDao;
   }
 
-  @RequestMapping("/photoboard/form") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
+  @RequestMapping("/photoboard/form")
   public void form(ServletRequest request, ServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>사진게시물 등록폼</title></head>");
     out.println("<body><h1>사진게시물 등록폼</h1>");
     out.println("<form action='/photoboard/add'>");
-    out.println("제목: <input type='text' name = 'title'><br>\n");
-    out.println("수업: <input type='text' name = 'lessonNo'><br>\n");
-    out.println("사진1: <input type='text' name = 'filePath1'><br>\n");
-    out.println("사진2: <input type='text' name = 'filePath2'><br>\n");
-    out.println("사진3: <input type='text' name = 'filePath3'><br>\n");
-    out.println("사진4: <input type='text' name = 'filePath4'><br>\n");
-    out.println("사진5: <input type='text' name = 'filePath5'><br>\n");
-    out.println("사진6: <input type='text' name = 'filePath6'><br>\n");
+    out.println("제목: <input type='text' name='title'><br>");
+    out.println("수업: <input type='text' name='lessonNo'><br>");
+    out.println("사진1: <input type='text' name='filePath1'><br>");
+    out.println("사진2: <input type='text' name='filePath2'><br>");
+    out.println("사진3: <input type='text' name='filePath3'><br>");
+    out.println("사진4: <input type='text' name='filePath4'><br>");
+    out.println("사진5: <input type='text' name='filePath5'><br>");
+    out.println("사진6: <input type='text' name='filePath6'><br>");
     out.println("<button>등록</button>");
     out.println("</form>");
     out.println("</body></html>");
@@ -61,7 +61,6 @@ public class PhotoBoardCommand {
     out.println("<body><h1>사진게시물 등록</h1>");
     try {
       PhotoBoard photoBoard = new PhotoBoard();
-      
       photoBoard.setTitle(request.getParameter("title"));
       photoBoard.setLessonNo(Integer.parseInt(request.getParameter("lessonNo")));
       
@@ -83,12 +82,13 @@ public class PhotoBoardCommand {
       if (count == 0) {
         throw new Exception("사진 파일 없음!");
       }
-
-      out.println("저장하였습니다.");
+      
+      out.println("<p>저장하였습니다.</p>");
       
     } catch (Exception e) {
-      out.println("데이터 저장에 실패했습니다!");
+      out.println("<p>데이터 저장에 실패했습니다!</p>");
       throw new RuntimeException(e);
+      
     } finally {
       out.println("</body></html>");
     }
@@ -178,26 +178,38 @@ public class PhotoBoardCommand {
   public void list(ServletRequest request, ServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>사진게시물 목록</title>"
-        + "<link rel=\'stylesheet\' href=\'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\' integrity=\'sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\' crossorigin=\'anonymous\'>"
+        + "<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>"
         + "</head>");
     out.println("<body><h1>사진게시물 목록</h1>");
-    out.println("<a href='/photoboard/form'>사진게시물 추가</a><br>");
+    out.println("<a href='/photoboard/form'>새 사진게시물</a><br>");
+    
     try {
-      out.println("<table class='table'>");
-      out.println("<tr><th>번호</th><th>내용</th><th>생성일</th><th>조회수</th><th>강의번호</th></tr>");
+      out.println("<table class='table table-hover'>");
+      out.println("<tr><th>번호</th><th>제목</th><th>등록일</th><th>조회수</th><th>수업</th></tr>");
       List<PhotoBoard> photoBoards = photoBoardDao.findAll();
       for (PhotoBoard photoBoard : photoBoards) {
-        out.printf("<tr><td><a href='/photoboard/detail?no=%d'>%d</td>"
-            +"<td>%-30s</td><td>%s</td><td>%d</td><td>%d</td></tr>\n",
-            photoBoard.getNo(), photoBoard.getNo(), photoBoard.getTitle(),
-            photoBoard.getCreatedDate(), photoBoard.getViewCount(), photoBoard.getLessonNo());
+        out.printf("<tr>"
+            + "<td>%d</td>"
+            + "<td><a href='/photoboard/detail?no=%d'>%s</a></td>"
+            + "<td>%s</td>"
+            + "<td>%d</td>"
+            + "<td>%d</td></tr>\n", 
+            photoBoard.getNo(),
+            photoBoard.getNo(),
+            photoBoard.getTitle(), 
+            photoBoard.getCreatedDate(), 
+            photoBoard.getViewCount(),
+            photoBoard.getLessonNo());
       }
       out.println("</table>");
+      
     } catch (Exception e) {
-      out.println("데이터 목록 조회에 실패했습니다!");
+      out.println("<p>데이터 목록 조회에 실패했습니다!</p>");
       throw new RuntimeException(e);
+    
+    } finally {
+      out.println("</body></html>");
     }
-    out.println("</body></html>");
   }
   
   @Transactional
