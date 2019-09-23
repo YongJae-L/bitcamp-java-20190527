@@ -18,6 +18,7 @@
 <c:set scope="request" var="name1" value="홍길동"/>
 1: ${requestScope.name1}<br>
 2: ${pageScope.name1}<br>
+3: ${name1}<br>
 
 <c:set var="name2" value="임꺽정"/>
 1: ${requestScope.name2}<br>

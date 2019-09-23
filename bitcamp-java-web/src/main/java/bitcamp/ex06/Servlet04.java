@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-// 서블릿이 사용할 값을 DD 설정으로 지정할 수 있다.
+// 서블릿이 사용할 값을 DD 설정으로 지정할 수 있다. DD설정 -> web.xml
 // => web.xml 에 지정하였다.
 @SuppressWarnings("serial")
 public class Servlet04 extends HttpServlet {

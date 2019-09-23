@@ -11,7 +11,7 @@
 <pre>
 1) 웹브라우저 ==> 서블릿 컨테이너 
    - JSP 실행 요청
-     예) http://localhost:8080/java-web/jsp/ex01.jsp
+     예) http://localhost:8888/bitcamp-java-web/jsp/ex01.jsp
 2) 서블릿 컨테이너가 실행
    2.1 JSP의 서블릿 객체를 찾는다
    2.2 있으면,
@@ -44,7 +44,7 @@ JSP 공부법
 
 JSP 실행을 요청하기
 - JSP 파일이 있는 위치를 지정한다.
-  예) http://localhost:8080/java-web/jsp/ex01.jsp
+  예) http://localhost:8888/bitcamp-java-web/jsp/ex01.jsp
 
 JSP를 변경한 후 실행을 요청하기
 - 그냥 JSP 파일이 있는 위치를 지정하면 된다.

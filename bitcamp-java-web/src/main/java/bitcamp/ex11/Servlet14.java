@@ -40,6 +40,7 @@ public class Servlet14 extends HttpServlet {
     out.printf("전화: %s<br>\n", tel);
     out.println("</body></html>");
   }
+  
 }
 
 

@@ -20,7 +20,7 @@ public class Servlet02 extends HttpServlet {
       throws ServletException, IOException {
     
     // 테스트 방법:
-    // => http://localhost:8080/java-web/ex08/s2
+    // => http://localhost:8888/bitcamp-java-web/ex08/s2
     //
     // 리프래시
     // => 서버로부터 응답을 받고 내용을 출력한 후 특정 URL을 자동으로 요청하도록 만들 수 있다.

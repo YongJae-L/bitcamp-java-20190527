@@ -22,7 +22,7 @@ public class Servlet01 extends HttpServlet {
       throws ServletException, IOException {
     
     // 테스트 방법:
-    // => http://localhost:8080/java-web/ex10/s1
+    // => http://localhost:8888/bitcamp-java-web/ex10/s1
     //
     
     // 쿠키

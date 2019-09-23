@@ -16,6 +16,7 @@ HashMap<String,Object> map = new HashMap<>();
 map.put("s01", "김구");
 map.put("s02", "안중근");
 map.put("s03", "윤봉길");
+map.put("s04 ^^", "@@@");
 
 pageContext.setAttribute("map", map);
 %>

@@ -20,7 +20,7 @@ public class Servlet01 extends HttpServlet {
       throws ServletException, IOException {
     
     // 테스트 방법:
-    // => http://localhost:8080/java-web/ex08/s1
+    // => http://localhost:8888/bitcamp-java-web/ex08/s1
     //
     // 리프래시
     // => 서버로부터 응답을 받고 내용을 출력한 후 특정 URL을 자동으로 요청하도록 만들 수 있다.
@@ -65,7 +65,10 @@ public class Servlet01 extends HttpServlet {
       out.println(i + "  ===> 1234567890123456789012345678901234567890");
     }
     
-    response.setHeader("Refresh", "3;url=s100");
+    response.setHeader("Refresh", "3;url=s100"); // 응답.헤더에설정 (설정내용)
+    
+    // 이 메서드의 호출이 끝나면 비로소 응답 프로토콜에 맞춰
+    // 클라이언트로 헤더와 내용이 출력된다.
   }
 }
 

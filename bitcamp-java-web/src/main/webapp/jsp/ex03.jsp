@@ -28,7 +28,7 @@ JSP 주석
 <%
 if (i < 10) {
   for (int x = 0; x < i; x++) {
-    out.println("<p>" + x + "</p>");
+    out.println("<p>"+"가!aA"+ x + "</p>");
   }
 }
 %>

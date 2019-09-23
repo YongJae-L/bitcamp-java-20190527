@@ -25,6 +25,11 @@ pageContext.setAttribute("names1", "홍길동,임꺽정,유관순,김구");
     <li>${n}</li>
 </c:forTokens>
 </ul>
+<ul>
+<c:forEach items="${pageScope.names1}" var="n"> <!-- comma ,만 가능 -->
+    <li>${n}</li>
+</c:forEach>
+</ul>
 
 
 <h2>Query String 문자열</h2>

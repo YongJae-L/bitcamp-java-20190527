@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/ex05/s1")
+@WebServlet("/ex05/s1") // 이 서블릿을 사용할 때 URL 매핑! -> 이 서비스를 사용하고 싶으면 Web 브라우저에서 다음과같은 루트로 요청 
 public class Servlet01 extends GenericServlet {
   
   private static final long serialVersionUID = 1L;
@@ -21,7 +21,7 @@ public class Servlet01 extends GenericServlet {
       throws ServletException, IOException {
     
     // 테스트
-    // - http://localhost:8080/java-web/ex05/test01.html 실행
+    // - http://localhost:8888/bitcamp-java-web/ex05/test01.html 실행
     //
     
     // HTTP 프로토콜로 통신을 하는 서블릿 컨테이너는 

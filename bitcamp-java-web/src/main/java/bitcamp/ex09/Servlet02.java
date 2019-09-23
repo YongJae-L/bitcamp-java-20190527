@@ -22,7 +22,7 @@ public class Servlet02 extends HttpServlet {
       throws ServletException, IOException {
     
     // 테스트 방법:
-    // => http://localhost:8080/java-web/ex09/s2
+    // => http://localhost:8888/java-web/ex09/s2
     //
     
     // 1) ServletContext 보관소에 저장된 값 꺼내기
@@ -33,10 +33,10 @@ public class Servlet02 extends HttpServlet {
     // => 이 요청을 한 클라이언트의 HttpSession 객체가 없다면 만들어준다.
     // => 이미 이 클라이언트를 위해 만든 객체가 있다면 그 객체를 리턴한다.
     HttpSession session = request.getSession();
-    String v2 = (String) session.getAttribute("v2");
+    String v2 = (String) session.getAttribute("v2");  
     
     // 3) ServletRequest 보관소에 저장된 값 꺼내기
-    String v3 = (String) request.getAttribute("v3");
+    String v3 = (String) request.getAttribute("v3"); 
     
     response.setContentType("text/plain;charset=UTF-8");
     PrintWriter out = response.getWriter();
