@@ -22,7 +22,7 @@ public class HelloServlet extends HttpServlet {
     
     out.println("<!DOCTYPE html>");
     out.println("<html><head><title>hello</title></head>");
-    out.println("<body><h1>Hello</h1></body></html>");
+    out.println("<body><h1>Hello1</h1></body></html>");
   }
 }
 

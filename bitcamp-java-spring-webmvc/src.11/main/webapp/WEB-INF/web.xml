@@ -9,8 +9,8 @@
     스프링 Web MVC 프레임워크 예제 테스트
   </description>
 
-  <display-name>bitcamp-java-spring-webmvc</display-name>
-
+  <display-name>java-spring-webmvc</display-name>
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>

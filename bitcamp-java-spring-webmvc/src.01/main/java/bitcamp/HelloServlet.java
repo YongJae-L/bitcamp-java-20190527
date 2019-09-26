@@ -12,17 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/hello")
 public class HelloServlet extends HttpServlet {
   @Override
-  protected void doGet(
-      HttpServletRequest request, 
-      HttpServletResponse response)
-      throws ServletException, IOException {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     
     out.println("<!DOCTYPE html>");
     out.println("<html><head><title>hello</title></head>");
-    out.println("<body><h1>Hello</h1></body></html>");
+    out.println("<body><h1>Hello!</h1></body></html>");
   }
 }
 
