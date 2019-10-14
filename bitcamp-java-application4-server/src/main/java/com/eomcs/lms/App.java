@@ -1,20 +1,9 @@
-// v59_2 : WebApplicationInitializer를 사용하여 DispatcherServlet 배치하기
+// v61_1: Back-end 와 Front-end 분리하기
 package com.eomcs.lms;
 
 // 작업:
-// => com.eomcs.lms.controller 를 com.eomcs.lms.web 으로 패키지명 변경
-// => AppWebApplicationInitializer 생성
-// => /WEB-INF/web.xml 변경
-//    -DispatcherServlet 배치 정보 제거
-//    -ContextLoaderListener 배치 정보 제거
-//    -ContextLoaderListener 가 사용하는 컨텍스트 파라미터 정보 제거
-// => AppConfig, DatabaseConfig, MybatisConfig 에서 @Configuration 제거
-//    -AppWebApplicationInitializer 에서 이Java Config 클래스를 직접 지정하기 때문이다.
-// => com.eomcs.lms.config.AppConfig 변경
-//    - DispacherServlet의 IoC컨테이너가 관리하는 com.eomcs.lms.web 패키지는 제외한다.
-// => 기존의 JSP 파일을 WEB--INF 폴더 안으로 !
-
-
+// => /webapp/html/board/list.html 생성
+//
 // dummy 클래스!
 // => 기존 버전에서 계속 존재했던 클래스라서 그대로 둠.
 // => 단지 버전의 목표에 대한 설명을 기록하기 위해 존재함.

@@ -8,6 +8,7 @@
 </head>
 <body>
 <h1>test1.jsp 실행!</h1>
+<h2>이용재</h2>
 </body>
 </html>
 <%
